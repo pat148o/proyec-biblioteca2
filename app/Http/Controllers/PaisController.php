@@ -11,8 +11,8 @@ class PaisController extends Controller
     public function index()
     {
         //
-        $pais=Pais::all();
-        return $pais;
+        $pais=Pais::orderBy('nombre','asc')->get();
+        return ['pais'=>$pais];
     }
     public function store(Request $request)
     {
@@ -22,17 +22,17 @@ class PaisController extends Controller
         $pais->save();
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
-        $pais=Pais::findOrdFail($request->id);
+        $pais=Pais::findOrFail($request->id);
         $pais->nombre=$request->nombre;
         $pais->save();
     }
     public function destroy(Request $request)
     {
         //
-        $pais=Pais::findOrdFail($request->id);
+        $pais=Pais::findOrFail($request->id);
         $pais->delete();
     }
 }

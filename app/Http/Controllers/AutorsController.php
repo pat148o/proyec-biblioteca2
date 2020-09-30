@@ -12,9 +12,10 @@ class AutorsController extends Controller
     public function index()
     {
         //
-        $autors=Autors::all();
-        $pais=Pais::all();
-        return $autors;
+        $autors=Autors::orderBy('nombre','asc')->get();
+        return ['autors'=>$autors];
+        $pais=Pais::orderBy('id')->get();
+        return ['pais'=>$pais];
     }
     public function store(Request $request)
     {
@@ -23,17 +24,17 @@ class AutorsController extends Controller
         $autors->nombre=$request->nombre;
         $autors->save();
     }
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
-        $autors=Autors::findOrdFail($request->id);
+        $autors=Autors::findOrFail($request->id);
         $autors->nombre=$request->nombre;
         $autors->save();
     }
     public function destroy(Request $request)
     {
         //
-        $autors=Autors::findOrdFail($request->id);
+        $autors=Autors::findOrFail($request->id);
         $autors->delete();
     }
 }

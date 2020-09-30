@@ -11,8 +11,8 @@ class IdiomasController extends Controller
     public function index()
     {
         //
-        $idiomas=Idiomas::all();
-        return $idiomas;
+        $idiomas=Idiomas::orderBy('nombre','asc')->get();
+        return ['idiomas'=>$idiomas];
     }
     public function store(Request $request)
     {
@@ -22,17 +22,17 @@ class IdiomasController extends Controller
         $idiomas->save();
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request) 
     {
         //
-        $idomas=Idiomas::findOrdFail($request->id);
+        $idiomas=Idiomas::findOrFail($request->id);
         $idiomas->nombre=$request->nombre;
         $idiomas->save();
     }
     public function destroy(Request $request)
     {
         //
-        $idiomas=Idiomas::findOrdFail($request->id);
+        $idiomas=Idiomas::findOrFail($request->id);
         $idiomas->delete();
     }
 }

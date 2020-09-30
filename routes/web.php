@@ -22,15 +22,32 @@ route::get('/', function () {
     return view('contenido/contenido');
 });
 Route::get('autors','autorsController@index');
+// Route::get('/autors/registrar','autorsController@index');
+// Route::put('/autors/actualizar','autorsController@update');
+// Route::get('/autors/eliminar','autorsController@index');
 
 
-Route::get('categorias','categoriasController@index');
+
+
+Route::get('categoria','categoriasController@index');
+Route::post('/categorias/registrar','categoriasController@store');
+Route::put('/categorias/actualizar','categoriasController@update');
+Route::post('/categorias/eliminar','categoriasController@destroy');
 
 
 Route::get('editorials','editorialsController@index');
+Route::post('/editorials/registrar','editorialsController@store');
+Route::put('/editorials/actualizar','editorialsController@update');
+Route::post('/editorials/eliminar','editorialsController@destroy');
 
 
-Route::get('idiomas','idiomasController@index');
+Route::get('idioma','idiomasController@index');
+Route::post('/idioma/registrar','idiomasController@store');
+Route::put('/idioma/actualizar','idiomasController@update');
+Route::post('/idioma/eliminar','idiomasController@destroy');
 
 
 Route::get('pais','paisController@index');
+Route::post('/pais/registrar','paisController@store');
+Route::put('/pais/actualizar','paisController@update');
+Route::post('/pais/eliminar','paisController@destroy');

@@ -11,11 +11,9 @@ class CategoriasController extends Controller
     public function index()
     {
         //
-        $categorias=Categorias::all();
-        return $categorias;
+        $categorias=Categorias::orderBy('nombre','asc')->get();
+        return ['categorias'=>$categorias];
     }
-
-
    //guarda datos
     public function store(Request $request)
     {
@@ -24,21 +22,19 @@ class CategoriasController extends Controller
         $categorias->nombre=$request->nombre;
         $categorias->save();
     }
-
    //actualiza datos
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
-        $categorias=Categorias::findOrdFail($request->id);
+        $categorias=Categorias::findOrFail($request->id);
         $categorias->nombre=$request->nombre;
         $categorias->save();
     }
-
-   //elimina datos
+   //elimina datos 
     public function destroy(Request $request)
     {
         //
-        $categorias=Categorias::findOrdFail($request->id);
+        $categorias=Categorias::findOrFail($request->id);
         $categorias->delete();
 
     }
