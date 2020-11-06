@@ -22,5 +22,13 @@
         <pais></pais>
     </template>
 
+    <template v-if= "menu==6">
+        <libros></libros>
+    </template>
+
+    <template v-if= "menu==7">
+        <prestamo></prestamo>
+    </template>
+
 @endsection
 
