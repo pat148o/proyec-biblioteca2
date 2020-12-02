@@ -9,6 +9,7 @@
     <div class="container-fluid">     
         <!-- Ejemplo de tabla Listado -->
         <div class="card">
+
             <div class="card-header">
                 <i class="fa fa fa-book"></i>Solicitud Libros
                 <button type="button" class="btn btn-primary" data-toggle="modal" @click="abrirModal('guardar')">
@@ -57,10 +58,13 @@
                             <td v-text="objeto.autor"></td>
                             <td v-text="objeto.edit"></td>
                            
-                            <td>
-                               <button type="button" @click="eliminarSolicitud" class="btn btn-danger"><i class="icon-trash"></i></button>
-                             <!-- <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" @click="eliminarSolicitud(objeto)"></button> -->
-                            </td>                                                                        
+                            <td>                                                           
+                               <!-- <button type="button" class="btn btn-danger btn-sm" data-toggle= "modal"><i class="icon-trash"></i></button> -->
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" @click="eliminarSolicitud(objeto)">
+                                  <i class="icon-trash"></i>
+                                </button>
+
+                             </td>    
                         </tr>                                                                                                                                
                     </tbody>
                 </table>
@@ -83,19 +87,19 @@
                 <div class="modal-body">
                     <form class="form-horizontal">
                          <div class="form-group row">
-                    <div class="col-md-6">
+                        <div class="col-md-6">
                         <div class="input-group">
                             <input type="text" id="texto" name="texto" class="form-control" placeholder="libro a buscar" @keypress="listLib(1,buscar)">
-                            <button type="button" @click=listLib(1,buscar) class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                            <button type="button" @click="listLib(1,buscar)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                         </div>
-                    </div>
-                     <div class="col-md-6">
+                        </div>
+                         <div class="col-md-6">
                         <div class="input-group">
                             <label  class="mx-sm-3">Cantidad</label>
                             <input v-model="cant" type="number" class="form-control" placeholder="cantidad libros" >
                         </div>
-                    </div>
-                </div>
+                        </div>
+                     </div>
                         <table class="table table-bordered table-striped">
                             <thead>
                                     <tr>
@@ -111,8 +115,8 @@
                                <tr v-for="objeto in arrayLibros" :key ="objeto.id">
                                    <td v-text="objeto.codigo"></td>
                                    <td v-text="objeto.nombre"></td>
-                                   <td v-text="objeto.nomaut"></td>
-                                   <td v-text="objeto.nomedit"></td>
+                                   <td v-text="objeto.nomAut"></td>
+                                   <td v-text="objeto.nomEdit"></td>
                                    <td v-text="objeto.cant"></td>
                                    <td style="width=20px;"><button class="btn btn-success" @click="agregarItem(objeto)">OK</button></td>
                                 </tr> 
@@ -124,7 +128,7 @@
                         <a
                         class="page-link"
                         href="#"
-                        @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)"
+                        @click.prevent="cambiarPagina(pagination.current_page - 1,buscar)"
                         >Ant</a>
                         </li>
                         <li
@@ -136,21 +140,22 @@
                         <a
                         class="page-link"
                         href="#"
-                        @click.prevent="cambiarPagina(page,buscar,criterio)"
+                        @click.prevent="cambiarPagina(page,buscar)"
                         v-text="page"
                         ></a>
-                    </li>
-                    <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                        </li>
+                        <li class="page-item" v-if="pagination.current_page < pagination.last_page">
                         <a
                         class="page-link"
                         href="#"
-                        @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)"
+                        @click.prevent="cambiarPagina(pagination.current_page + 1,buscar)"
                         >Sig</a>
                             </li>
                         </ul>
-                </nav>                              
+                        </nav>                              
                     </form>
                  </div>
+                 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click="cerrarModal" data-dismiss="modal">Cerrar</button>
                    
@@ -167,6 +172,8 @@
 </template>
 
 <script>
+import Toasted from 'vue-toasted';
+Vue.use(Toasted);
     export default {
 
 
@@ -197,9 +204,8 @@
                     to:0
                 },
                 offset:3,
-                buscar:'',
-                criterio:'nombre'
-
+               
+                
             }
         },
 
@@ -228,8 +234,8 @@
                        me.codLibro=me.arrayGetLibro[0]['codigo'];
                        me.nomLibro=me.arrayGetLibro[0]['nombre'];
                        me.cantLibro=me.arrayGetLibro[0]['cant'];
-                       me.nomAut=me.arrayGetLibro[0]['nomaut'];
-                       me.nomEdit=me.arrayGetLibro[0]['nomedit'];
+                       me.nomAut=me.arrayGetLibro[0]['nomAut'];
+                       me.nomEdit=me.arrayGetLibro[0]['nomEdit'];
                    }else{
                        me.nomLibro="verificar el codigo o nombre";
                    }
@@ -245,41 +251,54 @@
              var url="/getpersona"
              axios.get(url).then(function(response){
                  var respuesta=response.data;
-                 me.arrayPersona=respuesta.persona;
+                 me.arrayPersona=respuesta.personas;
              })
             },
             
-            abrirMoldal:function(){
-                this.modal-1;
+            abrirModal:function(){
+                this.modal=1;
                 this.titulo="selecione un libro";
 
 
-            }, cerralMoldal:function(){
-                this.modal-0;
+            }, cerrarModal:function(){
+                this.modal=0;
                 this.titulo="";
 
             },
-            //toma los datos de la ventana modal cuando se da ok en el boton
+            //toma los datos de la ventana modal cuando se da ok en el boton y los agrega a la tabla arraydatos
             agregarItem:function(data=[]){
-                this.arrayDatos.push({id:data['id'],cod:data['codigo'],nombre:data['nombre'],cant:this.cant,autor:data['nomaut'],edit:data['nomedit']});
+                this.arrayDatos.push({id:data['id'],cod:data['codigo'],nombre:data['nombre'],cant:this.cant,autor:data['nomAut'],edit:data['nomEdit']});
                 this.arrayLibros.splice (0,1);
+                this.mensajeToast();
              },
              //agrega los datos que se estan llenando del formulario principal
             agregarItem2:function(){
                 this.arrayDatos.push({id:this.idLibro,cod:this.codLibro,nombre:this.nomLibro,cant:this.cant,autor:this.nomAut,edit:this.nomEdit});
                 this.arrayLibros.splice (0,1);
              },
+             mensajeToast(){
+                 let toast=this.$toasted.show('Libro Agregado',{
+                     theme:"bubble",
+                     	position: "top-right", 
+                        duration : 3000,
+                        type:"success"
+
+                 });
+
+             },
+            
             
             regSolicitud(){
                 let me = this;
-                var url="/solicitud/registrar";
+                var url="/solicitudes/registrar";
                 axios.post(url,{
+                   
                     fecE: this.fecEntrega,
                     idPerso:this.idPersona,
                     data:me.arrayDatos
                 })
                 .then(function(response){
-                    this.mensaje('Se guardo correctamente');
+                    me.mensaje();
                 })
                 .catch(function(error){
                     console.log(error);
@@ -287,27 +306,23 @@
                 
             },
 
+             mensaje(){
+            Swal.fire({
+             position: 'center',
+             icon: 'success',
+             title: 'Se guardo exitosamente',
+             showConfirmButton: false,
+             timer: 2000
+            })
+          },
 
-            cambiarPagina(page,buscar,criterio){
+
+            cambiarPagina(page,buscar){
                 let me=this;
                 //va a la pagina actual
                 me.pagination.current_page= page;
                 //envia al metodo para traer los datos
-                me.listLib(page,criterio,buscar);
-            },
-            eliminarSolicitud(data=[]){
-                 let me = this;
-            var url = "/solicitud/eliminar";
-            axios.post(url, {
-                id: data["id"],
-                })
-                .then(function (response) {
-                me.listLib();
-                me.mensaje2('Se elimino correctamente.');
-                })
-                .catch(function (error) {
-                console.log(error);
-                });
+                me.listLib(page,buscar);
             },
             
             abrirModal(accion,data=[]){
@@ -320,8 +335,10 @@
                 case 'editar':
                 this.titulo='Solicitar libro';
                 this.accion=1;
-                this.idPersona=data['id'];
-                this.nombre=data['nombre'];
+                this.id_solicitudes=data['id'];
+                this.fec_sol=data['fec_sol'];
+                this.fecEntrega=data ['fec_entrega']
+                this.idPerso=data['id_Persona']
              break;
                 default:
                 break;
@@ -332,18 +349,15 @@
             this.modal=0;
           },
            limpiar(){
+            this.cod='';
             this.nombre='';
+            this.cant='';
+            this.nomAut='';
+            this.nomEdit='';
           },
-            mensaje(msj){
-            Swal.fire({
-             position: 'center',
-             icon: 'success',
-             title: msj,
-             showConfirmButton: false,
-             timer: 2000
-            })
-          },
-           mensaje2(msj2){
+           
+           eliminarSolicitud(data=[]){
+                let me = this;
              Swal.fire({
                 title: 'Esta seguro de eliminarlo?',
                 text: "You won't be able to revert this!",
@@ -354,6 +368,18 @@
                 confirmButtonText: 'Yes, delete it!'
              }).then((result) => {
                 if (result.isConfirmed) {
+           var url = "/solicitudes/eliminar";
+            axios.post(url, {
+                id_solicitudes: data["id"],
+                })
+                .then(function (response) {
+                me.listLib(1,this.buscar);
+                me.mensaje2('Se elimino correctamente.');
+                })
+                .catch(function (error) {
+                console.log(error);
+                });
+
                 Swal.fire(
                'Deleted!',
                 'Se elimino correctamente.',
@@ -363,6 +389,7 @@
                 })
 
             }
+           
         },  
 
             computed:{

@@ -17,8 +17,8 @@ class LibrosController extends Controller
             ->join('autors','libros.id_autor','=','autors.id')
             ->join('idiomas','libros.id_idioma','=','idiomas.id')
             ->select('libros.id','libros.nombre','libros.codigo','libros.cant','libros.ano_publi','libros.num_pag','libros.ubicacion','libros.edicion',
-            'editorials.nombre as nomedit','categorias.nombre as nomcat','autors.nombre as nomaut','idiomas.nombre as nomidi')
-            ->orderBy('libros.nombre','asc')->paginate(12);
+            'editorials.nombre as nomEdit','categorias.nombre as nomCat','autors.nombre as nomAut','idiomas.nombre as nomIdi')
+            ->orderBy('libros.nombre','asc')->paginate(4);
    
         }else { 
             $libro=Libros::join('editorials','libros.id_editorial','=','editorials.id')
@@ -26,10 +26,10 @@ class LibrosController extends Controller
             ->join('autors','libros.id_autor','=','autors.id')
             ->join('idiomas','libros.id_idioma','=','idiomas.id')
             ->select('libros.id','libros.nombre','libros.codigo','libros.cant','libros.ano_publi','libros.num_pag','libros.ubicacion','libros.edicion',
-            'editorials.nombre as nomedit','categorias.nombre as nomcat','autors.nombre as nomaut','idiomas.nombre as nomidi')
+            'editorials.nombre as nomEdit','categorias.nombre as nomCat','autors.nombre as nomAut','idiomas.nombre as nomIdi')
             ->where('libros.nombre','like','%'.$buscar.'%')
             ->orwhere('libros.codigo','like','%'.$buscar.'%')
-            ->orderBy('libros.nombre','asc')->paginate(12);
+            ->orderBy('libros.nombre','asc')->paginate(4);
         }
 
         
@@ -67,7 +67,7 @@ class LibrosController extends Controller
         $libro->id_editorial = $request->idEdit;
         $libro->id_categoria = $request->idCat;
         $libro->id_autor= $request->idAut;
-        $libro->id_idioma= $request->nomIdi;
+        $libro->id_idioma= $request->idIdi;
         $libro->save();
     }
     
@@ -86,9 +86,9 @@ class LibrosController extends Controller
         $libro->id_editorial = $request->idEdit;
         $libro->id_categoria = $request->idCat;
         $libro->id_autor= $request->idAut;
-        $libro->id_idioma= $request->nomIdi;
+        $libro->id_idioma= $request->idIdi;
         $libro->save();
-    }
+    } 
     
     public function destroy(Request $request)
     {
@@ -104,13 +104,13 @@ class LibrosController extends Controller
    
             $libro=Libros::join('editorials','libros.id_editorial','=','editorials.id')
             ->join('autors','libros.id_autor','=','autors.id')
-            ->select('libros.id','libros.codigo','libros.nombre','autors.nombre as nomaut','editorials.nombre as nomedit')            
+            ->select('libros.id','libros.codigo','libros.nombre','autors.nombre as nomAut','editorials.nombre as nomEdit')            
             ->where('libros.codigo',$buscar)
            ->orwhere('libros.nombre','like','%'.$buscar.'%')
             ->orderBy('libros.nombre','asc')->take(1)->get();
         
         return[
-            'libro'=>$libro 
+            'libro'=>$libro   
         ];
     }
     

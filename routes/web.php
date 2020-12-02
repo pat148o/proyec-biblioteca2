@@ -14,13 +14,26 @@
 // 1. creo las rutas
 
 
-// route::get('plantilla', function () {
-//     return view('plantilla');
-// });
 
-route::get('/', function () {
+
+
+
+Route::get('/','Auth\LoginController@mostrarLogin');
+Route::post('/login','Auth\LoginController@login')->name('login');
+
+Route::get('/main', function () {
     return view('contenido/contenido');
-});
+})->name('main');
+
+
+
+Route::get('users','usersController@index');
+// Route::get('getuser','UserController@getUser');
+Route::post('/users/registrar','usersController@store');
+Route::put('/users/actualizar','UsersController@update');
+Route::post('/users/eliminar','usersController@destroy');
+
+
 Route::get('autors','autorsController@index');
 Route::get('getaut','autorsController@getAutor');
 Route::post('/autors/registrar','autorsController@store');
@@ -57,6 +70,13 @@ Route::post('/pais/registrar','paisController@store');
 Route::put('/pais/actualizar','paisController@update');
 Route::post('/pais/eliminar','paisController@destroy');
 
+Route::get('personas','personasController@index');
+Route::get('getpersona','personasController@getPersona');
+Route::post('/personas/registrar','personasController@store'); 
+Route::put('/personas/actualizar','personasController@update'); 
+Route::post('/personas/eliminar','personasController@destroy');
+
+
 
 Route::get('libros','librosController@index');
 Route::get('getlibro','librosController@getLibro');
@@ -64,8 +84,11 @@ Route::post('/libro/registrar','librosController@store');
 Route::put('/libro/actualizar','librosController@update');
 Route::post('/libro/eliminar','librosController@destroy');
 
-Route::get('getpersona','personasController@getPersona');
 
-Route::get('solicitud','solicitudesController@index');
-Route::post('/solicitud/registrar','solicitudesController@store');
-Route::post('/solicitud/eliminar','solicitudesController@destroy');
+
+
+
+Route::get('solicitudes','solicitudesController@index');
+Route::post('/solicitudes/registrar','solicitudesController@store');
+Route::post('/solicitudes/eliminar','solicitudesController@destroy');
+

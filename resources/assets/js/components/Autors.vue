@@ -30,20 +30,22 @@
                                     class="form-control col-md-3"
                                     id="opcion"
                                     name="opcion"
+                                    v-model="criterio"
                                 >
-                                    <option value="nombre">Nombre</option>
+                                <option  value="nombre">Nombre</option>
                                 </select>
                                 <input
+                                v-model="buscar"
                                     type="text"
                                     id="texto"
                                     name="texto"
                                     class="form-control"
                                     placeholder="Autor a buscar"
-                                    @keypress="listAut(1, buscar)"
+                                    @keypress="listAut(1, criterio,buscar)"
                                 />
                                 <button
                                     type="button"
-                                    @click="listAut(1, buscar)"
+                                    @click="listAut(1,criterio, buscar)"
                                     class="btn btn-primary"
                                 >
                                     <i class="fa fa-search"></i> Buscar
@@ -62,7 +64,7 @@
                         <tbody>
                             <tr v-for="objeto in arrayDatos" :key="objeto.id">
                                 <td v-text="objeto.nombre"></td>
-                                <td v-text="objeto.nompai"></td>
+                                <td v-text="objeto.nomPais"></td>
                                 <td>
                                     <button
                                         type="button"
@@ -177,7 +179,7 @@
                                         v-model="idPais"
                                         class="form-control col-8"
                                     >
-                                        <option
+                                        <option 
                                             v-for="objeto in arrayPais"
                                             :value="objeto.id"
                                             :key="objeto.id"
@@ -284,7 +286,6 @@ export default {
             modal: 0,
             titulo: "",
             accion: 0,
-            buscar: "",
 
             //variables de pagination
             pagination: {
@@ -296,8 +297,8 @@ export default {
                 to: 0
             },
             offset: 3,
-            buscar: "",
-            criterio: "nombre"
+            buscar:"",
+            criterio:"nombre"
         };
     },
 
@@ -312,7 +313,7 @@ export default {
 
         listAut: function(page, criterio, buscar) {
             let me = this;
-            var url = "/autors?page=" + page + criterio + "&buscar=" + buscar;
+            var url = "/autors?page=" + page + "&criterio="+ criterio + "&buscar=" + buscar;
             axios
                 .get(url)
                 .then(function(response) {
@@ -348,7 +349,7 @@ export default {
                     idPais: this.idPais
                 })
                 .then(function(response) {
-                    me.listAut();
+                    me.listAut(1, me.criterio, me.buscar);
                     me.mensaje("Se guardo correctamente");
                     me.cerrarModal();
                 })
@@ -365,7 +366,7 @@ export default {
                     idPais:this.idPais
                 })
                 .then(function(response) {
-                    me.listAut();
+                    me.listAut(1, me.criterio, me.buscar);
                     me.mensaje("Se actualizo correctamente");
                     me.cerrarModal();
                 })
@@ -380,7 +381,7 @@ export default {
                 id:data['id']
             })
             .then(function(response){
-                me.listAut();
+                me.listAut(1, me.criterio, me.buscar);
                 me.mensaje2('Se elimino correctamente.');
         
              })
@@ -401,7 +402,7 @@ export default {
                 this.accion=1;
                 this.idAut=data['id'];
                 this.nombre=data['nombre'];
-                this.id_pais=data['idPais']
+                this.idPais=data['nomPais']
              break;
                 default:
                 break;

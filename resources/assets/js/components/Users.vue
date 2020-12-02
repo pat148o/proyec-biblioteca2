@@ -11,27 +11,29 @@
     <!-- Ejemplo de tabla Listado -->
     <div class="card">
         <div class="card-header">
-            <i class="fa fa fa-house-user"></i> Editorial
+            <i class="fa fa fa-user"></i> Usuarios
             <button type="button" class="btn btn-secondary" data-toggle="modal" @click="abrirModal('guardar')">
                 <i class="icon-plus"></i>&nbsp;Nuevo
             </button>
         </div>
         <div class="card-body">
             <div class="form-group row">
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <select class="form-control col-md-3" id="opcion" name="opcion" v-model="criterio" >
-                          <option value="nombre">Nombre</option>
-                        </select>
-                        <input v-model="buscar" type="text" id="texto" name="texto" class="form-control" placeholder="Editorial a buscar" @keypress="listEdit(1,criterio, buscar)">
-                        <button type="button" @click="listEdit(1, criterio, buscar)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <select class="form-control col-md-3" id="opcion" name="opcion" v-model="criterio">
+                              <option value="name">Nombre</option>
+                            </select>
+                            <input v-model="buscar" type="text" id="texto" name="texto" class="form-control" placeholder="nombre a buscar" @keypress="listUsers(1, criterio, buscar)">
+                            <button type="button" @click="listUsers(1,criterio, buscar)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <table class="table table-bordered table-striped table-sm">
+             </div>
+             <table class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr>
                         <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Password</th>
                         <th>Opciones</th>
                         
                     </tr>
@@ -39,19 +41,21 @@
                 <tbody>
                 
                     <tr v-for="objeto in arrayDatos" :key="objeto.id">
-                        <td v-text="objeto.nombre"></td>
+                        <td v-text="objeto.name"></td>
+                        <td v-text="objeto.email"></td>
+                        <td v-text="objeto.password"></td>
                          <td>   
                             <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" @click="abrirModal('editar', objeto)">
                               <i class="icon-pencil"></i>
                             </button> &nbsp;
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" @click="eliminarEdit(objeto)">
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" @click="eliminarUsers(objeto)">
                               <i class="icon-trash"></i>
                             </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
-        
+            
             <nav>
                 <ul class="pagination">
                     <li class="page-item" v-if="pagination.current_page > 1">
@@ -102,8 +106,20 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                         <div class="col-md-9">
-                            <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control" placeholder="Nombre de la editorial">
-                            <span class="help-block">(*) Ingrese el nombre de la editorial</span>
+                            <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control" placeholder="Nombre del usuario">
+                            <span class="help-block">(*) Ingrese el nombre del Usuario</span>
+                        </div>
+
+                        <label class="col-md-3 form-control-label" for="text-input">Email</label>
+                        <div class="col-md-9">
+                            <input type="text" v-model="email" id="email" name="email" class="form-control" placeholder="email">
+                            <span class="help-block">(*) Ingrese el Email</span>
+                        </div>
+                        
+                        <label class="col-md-3 form-control-label" for="text-input">Contraseña</label>
+                        <div class="col-md-9">
+                            <input type="text" v-model="password" id="password" name="password" class="form-control" placeholder="password">
+                            <span class="help-block">(*) Ingrese la contraseña</span>
                         </div>
                     </div>
                    
@@ -111,8 +127,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" @click="cerrarModal" data-dismiss="modal">Cerrar</button>
-                <button v-show="accion==0" type="button" @click="regEdit" class="btn btn-primary">Guardar</button>
-                <button v-show="accion" type="button" @click="actEdit" class="btn btn-primary">Actuallizar</button>
+                <button v-show="accion==0" type="button" @click="regUsers" class="btn btn-primary">Guardar</button>
+                <button v-show="accion" type="button" @click="actUsers" class="btn btn-primary">Actuallizar</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -125,17 +141,17 @@
     <div class="modal-dialog modal-danger" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Eliminar Editorial</h4>
+                <h4 class="modal-title">Eliminar Usuario</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Estas seguro de eliminar la editorial?</p>
+                <p>Estas seguro de eliminar el usuario?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" @click="eliminarEdit" class="btn btn-danger">Eliminar</button>
+                <button type="submit" @click="eliminarUsers" class="btn btn-danger">Eliminar</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -151,13 +167,16 @@
          data() {
               return {
                  arrayDatos: [],
-                 arrayEdit:[],
+                //  arrayUsers:[],
                   nombre: "",
-                  idEdit: 0,
+                  idUsers: 0,
                   modal: 0,
                   titulo:"",
                   accion: 0,
-                  
+                  email:"",
+                  name:"",
+                  nombre:"",
+                  password:"",
 
                    //variables de pagination
                 pagination:{
@@ -169,44 +188,45 @@
                     to:0
                 },
                 offset:3,
-                buscar:"",
-                criterio:"nombre"
+                buscar:'',
+                criterio:'name'
 
                 }
             },
 
         methods: {
-            cambiarPagina(page,buscar,criterio){
+            cambiarPagina(page, buscar, criterio){
                 let me=this;
                 //va a la pagina actual
                  me.pagination.current_page= page;
                 //envia al metodo para traer los datos
-                me.listEdit(page,criterio,buscar);
-
-
+                me.listUsers(page,criterio,buscar);
             },
 
-            listEdit: function (page,criterio,buscar
-            ) {
+            listUsers: function (page,criterio,buscar) {
              let me = this;
-             var url = "/editorials?page="+page+'&criterio='+criterio+'&buscar='+buscar;
+             var url = "/users?page="+page+'&criterio='+criterio+'&buscar='+buscar;
              axios.get(url).then(function (response) {
              var respuesta = response.data;
-             me.arrayDatos = respuesta.editorials.data;
+             me.arrayDatos = respuesta.users.data;
              me.pagination=respuesta.pagination;
              })
             .catch(function (error) {
             console.log(error);
             });
          },
-            regEdit() {
+            regUsers() {
             let me = this;
-            var url = "/editorials/registrar";
+            var url = "/users/registrar";
             axios.post(url, {
-             nombre: this.nombre,
+             id:this.idUsers,
+             name: this.nombre,
+             email:this.email,
+             password:this.password
+
              })
             .then(function (response) {
-            me.listEdit(1, me.criterio, me.buscar);
+            me.listUsers(1, me.criterio, me.buscar);
             me.mensaje('Se guardo correctamente');
             me.cerrarModal();
              })
@@ -214,15 +234,17 @@
              console.log(error);
             });
           },
-            actEdit() {
+            actUsers() {
             let me = this;
-            var url = "/editorials/actualizar";
+            var url = "/users/actualizar";
             axios.put(url, {
-             id: this.idEdit,
-            nombre: this.nombre,
+             id: this.idUsers,
+            name:this.nombre,
+            email:this.email,
+            password:this.password
             })
             .then(function (response) {
-            me.listEdit(1, me.criterio, me.buscar);
+            me.listUsers(1, me.criterio, me.buscar);
             me.mensaje("Se actualizo correctamente");
              me.cerrarModal();
              })
@@ -230,14 +252,14 @@
             console.log(error);
              });
          },
-            eliminarEdit(data = []) {
+            eliminarUsers(data = []) {
             let me = this;
-            var url = "/editorials/eliminar";
+            var url = "/users/eliminar";
             axios.post(url, {
                 id: data["id"],
                 })
                 .then(function (response) {
-                me.listEdit(1, me.criterio, me.buscar);
+                me.listUsers(1, me.criterio, me.buscar);
                 me.mensaje2('Se elimino correctamente.');
                 })
                 .catch(function (error) {
@@ -247,15 +269,17 @@
             abrirModal(accion, data = []) {
               switch (accion) {
                 case "guardar":
-                this.titulo = "Registrar editorial";
+                this.titulo = "Registrar usuario";
                 this.accion = 0;
                 this.limpiar();
                 break;
                 case "editar":
-                this.titulo = "Editar editorial";
+                this.titulo = "Editar usuario";
                 this.accion = 1;
-                this.idEdit = data["id"];
-                this.nombre = data["nombre"];
+                this.idUsers = data["id"];
+                this.nombre = data["name"];
+                this.email = data["email"];
+                this.password = data["password"];
                 break;
                 default:
                 break;
@@ -266,7 +290,9 @@
              this.modal=0;
             },
              limpiar() {
-              this.nombre = "";
+              this.name = "";
+              this.email="";
+              this.password="";
              },
              mensaje(msj) {
              Swal.fire({
@@ -326,7 +352,7 @@
             },
     mounted() {
      console.log("Component mounted.");
-     this.listEdit(1,this.criterio,this.buscar);
+     this.listUsers(1,this.criterio,this.buscar);
     }
 }
 </script>

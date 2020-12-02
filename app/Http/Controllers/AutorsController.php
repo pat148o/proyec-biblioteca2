@@ -17,10 +17,14 @@ class AutorsController extends Controller
         if ($buscar=='') {
 
             $autors=Autors::join('pais','autors.id_pais','=','pais.id')
-            ->select('autors.id','autors.nombre','pais.nombre as nompai')
-            ->orderBy('nombre','asc')->paginate(4);
+            ->select('autors.id','autors.nombre','pais.nombre as nomPais')
+            ->orderBy('autors.nombre','asc')->paginate(4);
         }else {
-            $autors=Autors::where($criterio,'like','%'.$buscar.'%')->orderBy('nombre','asc')->paginate(4);
+            $autors=Autors::join('pais','autors.id_pais', '=','pais.id') 
+    ->select('autors.id','autors.nombre','pais.nombre as nomPais')
+    ->where('autors.nombre',$buscar)
+    ->orwhere('autors.nombre','like','%'.$buscar.'%')
+    ->orderBy('autors.nombre','asc')->paginate(4);
         }
 
         
@@ -53,24 +57,28 @@ class AutorsController extends Controller
     
     public function update(Request $request)
     {
-        //
+    
         $autors=Autors::findOrFail($request->id);
         $autors->nombre=$request->nombre;
+        
         $autors->id_pais= $request->idPais;
         $autors->save();
     }
     
     public function destroy(Request $request)
     {
-        //
+    
         $autors=Autors::findOrFail($request->id);
         $autors->delete();
     }
     
     public function getAutor(Request $request){
-    
-        $autors=Autors::orderBy('nombre','asc')->get();
 
+        $buscar=$request->buscar;
+        
+    $autors=Autors::
+    select('autors.id','autors.nombre')->get();
+    
         return[
             'autors'=>$autors
         ];

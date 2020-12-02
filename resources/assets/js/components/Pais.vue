@@ -21,11 +21,11 @@
                 <div class="form-group row">
                     <div class="col-md-6">
                         <div class="input-group">
-                            <select class="form-control col-md-3" id="opcion" name="opcion">
+                            <select class="form-control col-md-3" id="opcion" name="opcion" v-model="criterio">
                               <option value="nombre">Nombre</option>
                             </select>
-                            <input type="text" id="texto" name="texto" class="form-control" placeholder="Pais a buscar" @keypress="listPais(1,buscar)">
-                            <button type="submit" @click=listPais(1,buscar) class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                            <input v-model="buscar" type="text" id="texto" name="texto" class="form-control" placeholder="Pais a buscar" @keypress="listPais(1,criterio, buscar)">
+                            <button type="submit" @click="listPais(1,criterio, buscar)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                         </div>
                     </div>
                 </div>
@@ -50,28 +50,7 @@
                         </tr>                                                                                                                                
                     </tbody>
                 </table>
-                <!-- <nav>
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#">Ant</a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Sig</a>
-                        </li>
-                    </ul>
-                </nav> -->
+                
                 <nav>
                 <ul class="pagination">
                     <li class="page-item" v-if="pagination.current_page > 1">
@@ -222,7 +201,7 @@
                     nombre: this.nombre
                 })
                 .then(function(response){
-                    me.listPais();
+                    me.listPais(1, me.criterio, me.buscar);
                      me.mensaje('Se guardo correctamente');
                     me.cerrarModal();
                 })
@@ -238,7 +217,7 @@
 		            nombre :this.nombre
                 })
                 .then(function(response){
-                    me.listPais();
+                    me.listPais(1, me.criterio, me.buscar);
                     me.mensaje('Se actualizo correctamente');
                     me.cerrarModal();
                 })
@@ -254,7 +233,7 @@
                     id:data['id']
                 })
                 .then(function(response){
-                    me.listPais();
+                    me.listPais(1, me.criterio, me.buscar);
                     me.mensaje2('Se elimino correctamente.');
                 })
                 .catch(function(error){

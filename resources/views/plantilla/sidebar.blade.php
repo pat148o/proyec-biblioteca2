@@ -36,9 +36,18 @@
                       <li @click="menu=6" class="nav-item">
                         <a class="nav-link" href="i#"><i class="icon-wallet"></i>Libros</a>
                     </li>
+                      
                     <li @click="menu=7" class="nav-item">
                             <a class="nav-link" href="#"><i class="icon-bag"></i>Solicitud Libro</a>
                     </li>
+                    <li @click="menu=8" class="nav-item">
+                            <a class="nav-link" href="#"><i class="icon-bag"></i>Usuarios</a>
+                    </li>
+
+                    <li @click="menu=9" class="nav-item">
+                        <a class="nav-link" href="i#"><i class="icon-wallet"></i>Personas</a>
+                    </li>
+                    
                 </ul>
             </li>
             <li class="nav-item">

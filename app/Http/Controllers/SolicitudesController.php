@@ -19,7 +19,7 @@ class SolicitudesController extends Controller
             $solicitudes=Solicitudes::orderBy('id_persona','asc')->paginate(12);
    
         }else {
-            $solicitudes=Solicitudes::where(nomCom,'like','%'.$buscar.'%')->orderBy('nomCom','asc')->paginate(4);
+            $solicitudes=Solicitudes::where(nomCom,'like','%'.$buscar.'%')-orderBy('nomCom','asc')->paginate(4);
         }
 
         
@@ -53,9 +53,10 @@ class SolicitudesController extends Controller
         $detalles=$request->data;
 
         foreach($detalles as $key=>$det){
+
           $detalle=new DetSolicitudes();
-          $detalle->id_solucitudes=$solicitudes->id;
-          $detalle->id_libros= $det['id'];
+          $detalle->id_solicitud=$solicitudes->id;
+          $detalle->id_libro= $det['id'];
           $detalle->cant=$det['cant'];
           $detalle->save();
 

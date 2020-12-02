@@ -21,11 +21,11 @@
                 <div class="form-group row">
                     <div class="col-md-6">
                         <div class="input-group">
-                            <select class="form-control col-md-2" id="opcion" name="opcion">
+                            <select class="form-control col-md-2" id="opcion" name="opcion" v-model="criterio">
                               <option value="nombre">Nombre</option>
                             </select>
-                            <input type="text" id="texto" name="texto" class="form-control" placeholder="libro a buscar" @keypress="listLib(1,buscar)">
-                            <button type="button" @click=listLib(1,buscar)  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                            <input v-model="buscar" type="text" id="texto" name="texto" class="form-control" placeholder="libro a buscar" @keypress="listLib(1, criterio, buscar)">
+                            <button type="button" @click="listLib(1, criterio, buscar)"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                         </div>
                     </div>
                 </div>
@@ -47,6 +47,7 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         <tr v-for="objeto in arrayDatos" :key="objeto.id">
                             <td v-text="objeto.nombre"></td>
                             <td v-text="objeto.codigo"></td>
@@ -55,10 +56,10 @@
                             <td v-text="objeto.num_pag"></td>
                             <td v-text="objeto.ubicacion"></td>
                             <td v-text="objeto.edicion"></td>
-                            <td v-text="objeto.nomedit"></td>
-                            <td v-text="objeto.nomcat"></td>
-                            <td v-text="objeto.nomaut"></td>
-                            <td v-text="objeto.nomidi"></td>
+                            <td v-text="objeto.nomEdit"></td>
+                            <td v-text="objeto.nomCat"></td>
+                            <td v-text="objeto.nomAut"></td>
+                            <td v-text="objeto.nomIdi"></td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" @click="abrirModal('editar', objeto)">
                                   <i class="icon-pencil"></i>
@@ -123,48 +124,46 @@
                               <label class="col-md-2 form-control-label" for="text-input">Nombre</label>
                               <div class="col-md-4">
                                 <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control" placeholder="Nombre libro">
-                                <span class="help-block">(*) Ingrese el nombre del Libro</span>
+                                <!-- <span class="help-block">(*) Ingrese el nombre del Libro</span> -->
                             </div> 
                             <label class="col-md-2 form-control-label" for="text-input">Código</label>
                             <div class="col-md-4">
-                                <input type="text" v-model="codigo" id="codigo" name="codigo" class="form-control" placeholder="codigo">
-                                <span class="help-block">(*) Ingrese el código del libro</span>
-                        
-                            
+                                <input type="text" v-model="codigo" id="codigo" name="codigo" class="form-control" placeholder="codigo libro">
+                                <!-- <span class="help-block">(*) Ingrese el código del libro</span> -->
                         </div>
 
                             <label class="col-md-2 form-control-label" for="text-input">Cantidad</label>
                             <div class="col-md-4">
-                                <input type="text" v-model="cant" id="cant" name="cant" class="form-control" placeholder="cant">
-                                <span class="help-block">(*) Ingrese la cantidad</span>
+                                <input type="text" v-model="cant" id="cant" name="cant" class="form-control" placeholder="cantidad">
+                                <!-- <span class="help-block">(*) Ingrese la cantidad</span> -->
                             </div> 
 
                             <label class="col-md-2 form-control-label" for="text-input">Año Publicación</label>
                             <div class="col-md-4">
-                                <input type="date" v-model="ano_publi" id="ano_publi" name="ano_publi" class="form-control" placeholder="ano_publi">
-                                <span class="help-block">(*) Ingrese el año de publicación</span>
+                                <input type="date" v-model="ano_publi" id="ano_publi" name="ano_publi" class="form-control" placeholder="año publicacion">
+                                <!-- <span class="help-block">(*) Ingrese el año de publicación</span> -->
                             </div> 
 
                             <label class="col-md-2 form-control-label" for="text-input">Num. Paginas</label>
                             <div class="col-md-4">
-                                <input type="text" v-model="num_pag" id="num_pag" name="num_pag" class="form-control" placeholder="num_pag">
-                                <span class="help-block">(*) Ingrese el numero de pag.</span>
+                                <input type="text" v-model="num_pag" id="num_pag" name="num_pag" class="form-control" placeholder="numero de paginas">
+                                <!-- <span class="help-block">(*) Ingrese el numero de pag.</span> -->
                             </div> 
 
                             <label class="col-md-2 form-control-label" for="text-input">Ubicación</label>
                             <div class="col-md-4">
                                 <input type="text" v-model="ubicacion" id="ubicacion" name="ubicacion" class="form-control" placeholder="ubicacion">
-                                <span class="help-block">(*) Ingrese la ubicación</span>
+                                <!-- <span class="help-block">(*) Ingrese la ubicación</span> -->
                             </div> 
                     
                             <label class="col-md-2 form-control-label" for="text-input">Edición</label>
                             <div class="col-md-4">
                                 <input type="text" v-model="edicion" id="edicion" name="edicion" class="form-control" placeholder="edicion">
-                                <span class="help-block">(*) Ingrese la edicion</span>
+                                <!-- <span class="help-block">(*) Ingrese la edicion</span> -->
                             </div> 
                         </div>
                         
-                              <label class="mx-sm-2 ">Editoriales</label>  
+                              <label class="mx-sm-4 ">Editoriales</label>  
                        
                                     <select v-model="idEdit" class="form-control col-md-5   " >
                                         <option v-for="objeto in arrayEdit" :value="objeto.id" :key="objeto.id" v-text="objeto.nombre"></option> 
@@ -175,10 +174,9 @@
                                     <option v-for="objeto in arrayCat" :value="objeto.id" :key="objeto.id" v-text="objeto.nombre"></option> 
                                 </select>
                                 
-                              <!-- <label class="mx-sm-2">Cantidad Solicitad</label>
-                             <input type="text" class="form-control col-3">
-                             -->
-                                <label class=" mx-sm-4 ">Autor</label>    
+                             
+                             
+                                <label class=" cmx-sm-4 ">Autor</label>    
                                 <select v-model="idAut" class="form-control col-md-5  " >
                                     <option v-for="objeto in arrayAut" :value="objeto.id" :key="objeto.id" v-text="objeto.nombre"></option> 
                                 </select>
@@ -230,8 +228,6 @@
 
 <script>
     export default {
-
-
         data(){
             return{
                 arrayDatos:[],
@@ -255,7 +251,7 @@
                 modal:0,
                 titulo:"",
                 accion:0,
-                buscar:"",
+                
 
                //variables de pagination
                 pagination:{
@@ -267,8 +263,8 @@
                     to:0
                 },
                 offset:2,
-                buscar:'',
-                criterio:'nombre'
+                buscar:"",
+                criterio:"nombre"
 
             }
         },
@@ -279,12 +275,12 @@
                 //va a la pagina actual
                 me.pagination.current_page= page;
                 //envia al metodo para traer los datos
-                me.listAut(page,criterio,buscar);
+                me.listLib(page,criterio,buscar);
             },
 
             listLib:function(page,criterio,buscar){
                 let me = this;
-                var url="/libros?page="+ page+ '&criterio='+criterio+ '&buscar='+buscar;
+                var url="/libros?page="+ page+ "&criterio="+criterio+ "&buscar="+buscar;
                 axios.get(url).then(function(response){
                     var respuesta = response.data;
                     me.arrayDatos = respuesta.libro.data;
@@ -340,11 +336,10 @@
             },
             
             
-            regLib(){
+            regLib(){  
                 let me = this;
                 var url="/libro/registrar";
                 axios.post(url,{
-                    id:this.idLib,
                     nombre:this.nombre,
                     codigo:this.codigo,
                     cant:this.cant,
@@ -358,7 +353,7 @@
                     idIdi:this.idIdi,
                 })
                 .then(function(response){
-                    me.listLib();
+                    me.listLib(1, me.criterio, me.buscar);
                     me.mensaje('Se guardo correctamente');
                     me.cerrarModal();
                 })
@@ -385,7 +380,7 @@
                     idIdi:this.idIdi,
                 })
                 .then(function(response){
-                    me.listLib();
+                    me.listLib(1, me.criterio, me.buscar);
                     me.mensaje('Se actualizo correctamente');
                     me.cerrarModal();
                 })
@@ -393,22 +388,6 @@
                     console.log(error);
                 });
              },
-            eliminarLib(data=[]){
-                let me = this;
-                var url="/libro/eliminar";
-                axios.post(url,{
-                id:data['idLib']
-            })
-            .then(function(response){
-                me.listLib();
-                me.mensaje2('Se elimino correctamente.');
-        
-             })
-            .catch(function(error){
-                console.log(error);
-             });
-
-            }, 
             abrirModal(accion,data=[]){
                 switch(accion){
                 case'guardar':
@@ -427,10 +406,10 @@
                 this.num_pag=data["num_pag"];
                 this.ubicacion=data["ubicacion"];
                 this.edicion=data["edicion"];
-                this.id_editorial=data["idEdit"];
-                this.id_categoria=data["idCat"];
-                this.id_autor=data["idAut"];
-                this.id_idioma=data["idIdi"];
+                this.idEdit=data["nomEdit"];
+                this.idCat=data["nomCat"];
+                this.idAut=data["nomAut"];
+                this.idIdi=data["nomIdi"];
              break;
                 default:
                 break;
@@ -452,7 +431,8 @@
              timer: 2000
             })
           },
-           mensaje2(msj2){
+           eliminarLib(data=[]){
+                         let me = this;
              Swal.fire({
                 title: 'Esta seguro de eliminarlo?',
                 text: "You won't be able to revert this!",
@@ -463,6 +443,18 @@
                 confirmButtonText: 'Yes, delete it!'
              }).then((result) => {
                 if (result.isConfirmed) {
+           var url = "/libro/eliminar";
+            axios.post(url, {
+                id: data["id"],
+                })
+                .then(function (response) {
+                me.listLib(1, me.criterio, me.buscar);
+                me.mensaje2('Se elimino correctamente.');
+                })
+                .catch(function (error) {
+                console.log(error);
+                });
+
                 Swal.fire(
                'Deleted!',
                 'Se elimino correctamente.',
@@ -472,7 +464,10 @@
                 })
 
             }
+           
         },  
+
+          
 
             computed:{
             isActived: function() {

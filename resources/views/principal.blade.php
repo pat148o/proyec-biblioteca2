@@ -8,16 +8,21 @@
     <meta name="description" content="Sistema Libros Laravel Vue Js">
     <meta name="author" content="adsi.com">
     <meta name="keyword" content="Sistema libros Laravel Vue Js">
-    <meta name="csrf-token" content="{{csrf_token()}}">
-    <link rel="shortcut icon" href="img/favicon.png">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="#">
     <title>Sistema Libros</title>
     <!-- Icons -->
-    <link rel= "stylesheet" href="css/plantilla.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <link href="css/plantilla.css" rel="stylesheet">
+    <link  rel="stylesheet" href="css/plantilla.css">
+
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-    <div id= "app">
-        <header class="app-header navbar">
+<div id="app">
+    <header class="app-header navbar">
+
         <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -53,41 +58,64 @@
                     </a>
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img src="img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
-                    <span class="d-md-down-none">admin </span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-header text-center">
-                        <strong>Cuenta</strong>
-                    </div>
-                    <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Perfil</a>
-                    <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Cerrar sesión</a>
-                </div>
-            </li>
         </ul>
-        </header>
+       <ul class="nav navbar-nav ml-auto">
+       <li class="nav-item dropdown">
+       <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" role="button" href="#" aria-haspopup="true" aria-expanded="false">
+       <img src="img/avatars/5.jpg" class="img-avatar" alt="">
+       <span>{{Auth::user()->name}}</span>
+       </a>
+       
+       <div class="dropdown-menu dropdown-menu-right">
+          <div class="dropdown-header">
+          <strong>Cuenta</strong>
+          
+          <div>
+          <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Perfil</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Cerrar Sesión</a>
+          
+          </div>
+          
+          </div>
+       
+       </div>
+    </li>
+    </ul>
+        
+    </header>
+    
+   
 
-        <div class="app-body">
-            @include('plantilla.sidebar')
 
-        <!-- Contenido Principal -->
+    <div class="app-body">
 
-           @yield('contenido')
+       @if (Auth::check())
+       @include('plantilla.sidebar')
 
-        <!-- /Fin del contenido principal -->
-        </div>
+       @endif
+    
+     <!-- Contenido Principal -->
 
+
+       
+        @yield("contenido")
+        
+        
+        
+        
+    <!-- /Fin del contenido principal -->
     </div>
+    </div>
+
+    
 
     <footer class="app-footer">
         <span><a href="http://www.ADSI.com/">ADSI</a> &copy; 2020</span>
-        <span class="ml-auto">Desarrollado por <a href="http://www.ADSI.com/">ADSI</a></span>
+        <span class="ml-auto">Desarrollado por Patricia m.<a href="http://www.ADSI.com/">ADSI</a></span>
     </footer>
 
-    <script src= "js/app.js"></script>
-    <script src= "js/plantilla.js"></script>   
+    <script src="js/app.js"></script>
+    <script src="js/plantilla.js"></script>
 </body>
 
 </html>

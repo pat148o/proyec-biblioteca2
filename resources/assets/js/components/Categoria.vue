@@ -21,11 +21,11 @@
                 <div class="form-group row">
                     <div class="col-md-6">
                         <div class="input-group">
-                            <select class="form-control col-md-3" id="opcion" name="opcion">
+                            <select class="form-control col-md-3" id="opcion" name="opcion" v-model="criterio">
                               <option value="nombre">Nombre</option>
                             </select>
-                            <input type="text" id="texto" name="texto" class="form-control" placeholder="nombre a buscar" @keypress="listCat(1,buscar)">
-                            <button type="button" @click=listCat(1,buscar) class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                            <input v-model="buscar" type="text" id="texto" name="texto" class="form-control" placeholder="nombre a buscar" @keypress="listCat(1, criterio, buscar)">
+                            <button type="button" @click="listCat(1,criterio, buscar)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                         </div>
                     </div>
                 </div>
@@ -145,6 +145,7 @@
 </template>
 
 <script>
+import { required, minLength, between } from 'vuelidate/lib/validators'
     export default {
 
 
@@ -157,7 +158,7 @@
                 modal:0,
                 titulo:"",
                 accion:0,
-                buscar:"",
+                
 
                //variables de pagination
                 pagination:{
@@ -174,7 +175,11 @@
 
             }
         },
-
+        validations:{
+            nombre:{
+                required
+            }
+        },
         methods: {
             cambiarPagina(page,buscar,criterio){
                 let me=this;
@@ -183,7 +188,21 @@
                 //envia al metodo para traer los datos
                 me.listCat(page,criterio,buscar);
             },
+            validarDatos(modelo){
+                const campo=this.$v[modelo];
+                if (campo) {
+                    return{
+                        "error":campo.$invalid && campo.$dirty
+                    };
+                }
+            },
 
+            validar(){
+                this.$v.$touch();
+                if (!this.$v.$invalid) {
+                    this.regCat();
+                }
+            },
             listCat:function(page,criterio,buscar){
                 let me = this;
                 var url="/categoria?page="+ page+ '&criterio='+criterio+ '&buscar='+buscar;
@@ -203,7 +222,7 @@
                     nombre: this.nombre
                 })
                 .then(function(response){
-                    me.listCat();
+                    me.listCat(1, me.criterio, me.buscar);
                     me.mensaje('Se guardo correctamente');
                     me.cerrarModal();
                 })
@@ -220,7 +239,7 @@
 		            nombre :this.nombre
                 })
                 .then(function(response){
-                    me.listCat();
+                    me.listCat(1, me.criterio, me.buscar);
                     me.mensaje('Se actualizo correctamente');
                     me.cerrarModal();
                 })
@@ -235,7 +254,7 @@
                 id:data['id']
             })
             .then(function(response){
-                me.listCat();
+                me.listCat(1, me.criterio, me.buscar);
                 me.mensaje2('Se elimino correctamente.');
         
              })
