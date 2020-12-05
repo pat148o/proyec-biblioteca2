@@ -16,7 +16,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" @click="abrirModal('guardar')">
                     <i class="icon-plus"></i>&nbsp;Nuevo 
                 </button>
-            </div>
+            </div> 
             <div class="card-body">
                 <div class="form-group row">
                     <div class="col-md-6">
@@ -247,77 +247,75 @@ import { required, minLength, between } from 'vuelidate/lib/validators'
                     console.log(error);
                 });
              },
-            eliminarCat(data=[]){
-                let me = this;
-                var url="/categorias/eliminar";
-                axios.post(url,{
-                id:data['id']
-            })
-            .then(function(response){
-                me.listCat(1, me.criterio, me.buscar);
-                me.mensaje2('Se elimino correctamente.');
-        
-             })
-            .catch(function(error){
-                console.log(error);
-             });
+               eliminarCat(data=[]){
+                            let me = this;
+                       Swal.fire({
+                        title: 'Estas seguro?',
+                        text: "Se eliminaran los datos",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: 'Cancelar!',
+                        confirmButtonText: 'Confirmar!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                        var url = "/categorias/eliminar";
+                            axios.post(url, {
+                                id: data["id"],
+                                })
+                                .then(function (response) {
+                                me.listCat(1, me.criterio, me.buscar);
+                                })
+                                .catch(function (error) {
+                                console.log(error);
+                                });
 
-            }, 
-            abrirModal(accion,data=[]){
-                switch(accion){
-                case'guardar':
-                this.titulo='Registrar categoría';
-                this.accion=0;
-                this.limpiar();
-             break;
-                case 'editar':
-                this.titulo='Editar categoría';
-                this.accion=1;
-                this.idCat=data['id'];
-                this.nombre=data['nombre'];
-             break;
-                default:
+                                Swal.fire(
+                                'Borrado!',
+                                'Se elimino correctamente.',
+                                'success'
+                                    )
+                                }
+                                })
+
+                            },  
+
+                abrirModal(accion,data=[]){
+                    switch(accion){
+                    case'guardar':
+                    this.titulo='Registrar categoría';
+                    this.accion=0;
+                    this.limpiar();
                 break;
-            }
-            this.modal=1;
-          },
-           cerrarModal(){
-            this.modal=0;
-          },
-           limpiar(){
-            this.nombre='';
-          },
-            mensaje(msj){
-            Swal.fire({
-             position: 'center',
-             icon: 'success',
-             title: msj,
-             showConfirmButton: false,
-             timer: 2000
-            })
-          },
-           mensaje2(msj2){
-             Swal.fire({
-                title: 'Esta seguro de eliminarlo?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-             }).then((result) => {
-                if (result.isConfirmed) {
-                Swal.fire(
-               'Deleted!',
-                'Se elimino correctamente.',
-                'success'
-                    )
-                 }
+                    case 'editar':
+                    this.titulo='Editar categoría';
+                    this.accion=1;
+                    this.idCat=data['id'];
+                    this.nombre=data['nombre'];
+                break;
+                    default:
+                    break;
+                }
+                this.modal=1;
+            },
+            cerrarModal(){
+                this.modal=0;
+            },
+            limpiar(){
+                this.nombre='';
+            },
+                mensaje(msj){
+                Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: msj,
+                showConfirmButton: false,
+                timer: 2000
                 })
-
-            }
-        },  
-
+            },
+          
+        },
             computed:{
             isActived: function() {
             return this.pagination.current_page;

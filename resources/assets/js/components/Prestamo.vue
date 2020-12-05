@@ -59,7 +59,7 @@
                             <td v-text="objeto.edit"></td>
                            
                             <td>                                                           
-                               <!-- <button type="button" class="btn btn-danger btn-sm" data-toggle= "modal"><i class="icon-trash"></i></button> -->
+                               
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" @click="eliminarSolicitud(objeto)">
                                   <i class="icon-trash"></i>
                                 </button>
@@ -118,7 +118,7 @@
                                    <td v-text="objeto.nomAut"></td>
                                    <td v-text="objeto.nomEdit"></td>
                                    <td v-text="objeto.cant"></td>
-                                   <td style="width=20px;"><button class="btn btn-success" @click="agregarItem(objeto)">OK</button></td>
+                                   <td style="width=20px;"><button type="button" class="btn btn-success" @click="agregarItem(objeto)">OK</button></td>
                                 </tr> 
                             </tbody>
                         </table> 
@@ -357,39 +357,39 @@ Vue.use(Toasted);
           },
            
            eliminarSolicitud(data=[]){
-                let me = this;
-             Swal.fire({
-                title: 'Esta seguro de eliminarlo?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                this.arrayDatos.splice(0,1)
+                Swal.fire({
+                    title: 'Estas seguro?',
+                    text: "Se eliminaran los datos",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar!',
+                    confirmButtonText: 'Confirmar!'
              }).then((result) => {
                 if (result.isConfirmed) {
            var url = "/solicitudes/eliminar";
             axios.post(url, {
-                id_solicitudes: data["id"],
+                id: data["id"],
                 })
                 .then(function (response) {
-                me.listLib(1,this.buscar);
-                me.mensaje2('Se elimino correctamente.');
+                me.listLib(1, me.criterio, me.buscar);
                 })
                 .catch(function (error) {
                 console.log(error);
                 });
 
                 Swal.fire(
-               'Deleted!',
+               'Borrado!',
                 'Se elimino correctamente.',
                 'success'
                     )
                  }
                 })
 
-            }
-           
+
+                    }
         },  
 
             computed:{

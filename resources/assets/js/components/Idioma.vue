@@ -226,22 +226,41 @@
                     console.log(error);
                 });
              },
-            eliminarIdiomas(data=[]){
-                let me = this;
-                var url="/idioma/eliminar";
-                axios.post(url,{
-                id:data['id']
-            })
-            .then(function(response){
-               me.listIdiom(1, me.criterio, me.buscar);
-                me.mensaje2('Se elimino correctamente.');
-        
-             })
-            .catch(function(error){
-                console.log(error);
-             });
+                 eliminarIdiomas(data=[]){
+                            let me = this;
+                            Swal.fire({
+                            title: 'Estas seguro?',
+                            text: "Se eliminaran los datos",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            cancelButtonText: 'Cancelar!',
+                            confirmButtonText: 'Confirmar!' 
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                var url = "/idioma/eliminar";
+                                axios.post(url, {
+                                id: data["id"],
+                                })
+                                .then(function (response) {
+                                 me.listIdiom(1, me.criterio, me.buscar);
+                                
+                                })
+                                .catch(function (error) {
+                                console.log(error);
+                                });
 
-            }, 
+                                Swal.fire(
+                                'Borrado!',
+                                'Se elimino correctamente.',
+                                'success'
+                                    )
+                                }
+                                })
+
+                            }, 
+        
             abrirModal(accion,data=[]){
                 switch(accion){
                 case'guardar':
@@ -275,28 +294,8 @@
              timer: 2000
             })
           },
-           mensaje2(msj2){
-             Swal.fire({
-                 title: 'Esta seguro de eliminarlo?',
-                text: "You won't be able to revert this!",
-                 icon: 'warning',
-                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-             }).then((result) => {
-                if (result.isConfirmed) {
-                Swal.fire(
-               'Deleted!',
-                'Se elimino correctamente.',
-                'success'
-                    )
-                 }
-                })
-
-            }
-
-        },
+          
+        }, 
          computed:{
             isActived: function() {
             return this.pagination.current_page;
@@ -312,7 +311,7 @@
                 from = 1;
             }
 
-            var to = from + this.offset * 2;
+            var to = from + this.offset * 2; 
             if (to >= this.pagination.last_page) {
                 to = this.pagination.last_page;
             }

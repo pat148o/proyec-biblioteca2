@@ -71,7 +71,7 @@
                     :key="page"
                     :class="[page == isActived ? 'active' : '']"
                     >
-                    <a
+                    <a 
                     class="page-link"
                     href="#"
                     @click.prevent="cambiarPagina(page,buscar,criterio)"
@@ -252,20 +252,41 @@
             console.log(error);
              });
          },
-            eliminarUsers(data = []) {
-            let me = this;
-            var url = "/users/eliminar";
+              eliminarUsers(data=[]){
+             let me = this;
+            Swal.fire({
+                    title: 'Estas seguro?',
+                    text: "Se eliminaran los datos",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar!',
+                    confirmButtonText: 'Confirmar!'
+             }).then((result) => {
+                if (result.isConfirmed) {
+           var url = "/users/eliminar";
             axios.post(url, {
                 id: data["id"],
                 })
                 .then(function (response) {
-                me.listUsers(1, me.criterio, me.buscar);
-                me.mensaje2('Se elimino correctamente.');
+               me.listUsers(1, me.criterio, me.buscar);
+                me.mensaje2('Se elimino correctamente.'); 
                 })
                 .catch(function (error) {
                 console.log(error);
                 });
+
+                Swal.fire(
+               'Borrado!',
+                'Se elimino correctamente.',
+                'success'
+                    )
+                 }
+                })
+
             },
+        
             abrirModal(accion, data = []) {
               switch (accion) {
                 case "guardar":
@@ -303,23 +324,6 @@
                 timer: 2000,
             });
           },
-            mensaje2(msj2) {
-                Swal.fire({
-                    title: "Esta seguro de eliminarlo?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, delete it!",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                    Swal.fire("Deleted!", 
-                    "Se elimino correctamente.",
-                    "success")
-                    }
-                })
-            },
 
         },   
             computed:{
@@ -350,10 +354,11 @@
                 return pagesArray;
                 }    
             },
-    mounted() {
-     console.log("Component mounted.");
-     this.listUsers(1,this.criterio,this.buscar);
-    }
+        
+            mounted() {
+            console.log("Component mounted.");
+            this.listUsers(1,this.criterio,this.buscar);
+            }
 }
 </script>
 

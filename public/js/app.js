@@ -51315,14 +51315,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
             var me = this;
-            var url = "/autors/eliminar";
-            axios.post(url, {
-                id: data['id']
-            }).then(function (response) {
-                me.listAut(1, me.criterio, me.buscar);
-                me.mensaje2('Se elimino correctamente.');
-            }).catch(function (error) {
-                console.log(error);
+            Swal.fire({
+                title: 'Estas seguro?',
+                text: "Se eliminaran los datos",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar!',
+                confirmButtonText: 'Confirmar!'
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    var url = "/autors/eliminar";
+                    axios.post(url, {
+                        id: data["id"]
+                    }).then(function (response) {
+                        me.listAut(1, me.criterio, me.buscar);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+
+                    Swal.fire('Borrado!', 'Se elimino correctamente.', 'success');
+                }
             });
         },
         abrirModal: function abrirModal(accion) {
@@ -51359,21 +51373,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 title: msj,
                 showConfirmButton: false,
                 timer: 2000
-            });
-        },
-        mensaje2: function mensaje2(msj2) {
-            Swal.fire({
-                title: 'Esta seguro de eliminarlo?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then(function (result) {
-                if (result.isConfirmed) {
-                    Swal.fire('Deleted!', 'Se elimino correctamente.', 'success');
-                }
             });
         }
     },
@@ -52367,14 +52366,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
             var me = this;
-            var url = "/categorias/eliminar";
-            axios.post(url, {
-                id: data['id']
-            }).then(function (response) {
-                me.listCat(1, me.criterio, me.buscar);
-                me.mensaje2('Se elimino correctamente.');
-            }).catch(function (error) {
-                console.log(error);
+            Swal.fire({
+                title: 'Estas seguro?',
+                text: "Se eliminaran los datos",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar!',
+                confirmButtonText: 'Confirmar!'
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    var url = "/categorias/eliminar";
+                    axios.post(url, {
+                        id: data["id"]
+                    }).then(function (response) {
+                        me.listCat(1, me.criterio, me.buscar);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+
+                    Swal.fire('Borrado!', 'Se elimino correctamente.', 'success');
+                }
             });
         },
         abrirModal: function abrirModal(accion) {
@@ -52411,24 +52424,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 showConfirmButton: false,
                 timer: 2000
             });
-        },
-        mensaje2: function mensaje2(msj2) {
-            Swal.fire({
-                title: 'Esta seguro de eliminarlo?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then(function (result) {
-                if (result.isConfirmed) {
-                    Swal.fire('Deleted!', 'Se elimino correctamente.', 'success');
-                }
-            });
         }
     },
-
     computed: {
         isActived: function isActived() {
             return this.pagination.current_page;
@@ -54093,14 +54090,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
             var me = this;
-            var url = "/editorials/eliminar";
-            axios.post(url, {
-                id: data["id"]
-            }).then(function (response) {
-                me.listEdit(1, me.criterio, me.buscar);
-                me.mensaje2('Se elimino correctamente.');
-            }).catch(function (error) {
-                console.log(error);
+            Swal.fire({
+                title: 'Estas seguro?',
+                text: "Se eliminaran los datos",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar!',
+                confirmButtonText: 'Confirmar!'
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    var url = "/editorials/eliminar";
+                    axios.post(url, {
+                        id: data["id"]
+                    }).then(function (response) {
+                        me.listEdit(1, me.criterio, me.buscar);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+
+                    Swal.fire('Borrado!', 'Se elimino correctamente.', 'success');
+                }
             });
         },
         abrirModal: function abrirModal(accion) {
@@ -54137,23 +54148,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 showConfirmButton: false,
                 timer: 2000
             });
-        },
-        mensaje2: function mensaje2(msj2) {
-            Swal.fire({
-                title: "Esta seguro de eliminarlo?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
-            }).then(function (result) {
-                if (result.isConfirmed) {
-                    Swal.fire("Deleted!", "Se elimino correctamente.", "success");
-                }
-            });
         }
     },
+
     computed: {
         isActived: function isActived() {
             return this.pagination.current_page;
@@ -55040,14 +55037,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
             var me = this;
-            var url = "/idioma/eliminar";
-            axios.post(url, {
-                id: data['id']
-            }).then(function (response) {
-                me.listIdiom(1, me.criterio, me.buscar);
-                me.mensaje2('Se elimino correctamente.');
-            }).catch(function (error) {
-                console.log(error);
+            Swal.fire({
+                title: 'Estas seguro?',
+                text: "Se eliminaran los datos",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar!',
+                confirmButtonText: 'Confirmar!'
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    var url = "/idioma/eliminar";
+                    axios.post(url, {
+                        id: data["id"]
+                    }).then(function (response) {
+                        me.listIdiom(1, me.criterio, me.buscar);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+
+                    Swal.fire('Borrado!', 'Se elimino correctamente.', 'success');
+                }
             });
         },
         abrirModal: function abrirModal(accion) {
@@ -55083,21 +55094,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 title: msj,
                 showConfirmButton: false,
                 timer: 2000
-            });
-        },
-        mensaje2: function mensaje2(msj2) {
-            Swal.fire({
-                title: 'Esta seguro de eliminarlo?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then(function (result) {
-                if (result.isConfirmed) {
-                    Swal.fire('Deleted!', 'Se elimino correctamente.', 'success');
-                }
             });
         }
     },
@@ -55993,14 +55989,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
             var me = this;
-            var url = "/pais/eliminar";
-            axios.post(url, {
-                id: data['id']
-            }).then(function (response) {
-                me.listPais(1, me.criterio, me.buscar);
-                me.mensaje2('Se elimino correctamente.');
-            }).catch(function (error) {
-                console.log(error);
+            Swal.fire({
+                title: 'Estas seguro?',
+                text: "Se eliminaran los datos",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar!',
+                confirmButtonText: 'Confirmar!'
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    var url = "/pais/eliminar";
+                    axios.post(url, {
+                        id: data["id"]
+                    }).then(function (response) {
+                        me.listPais(1, me.criterio, me.buscar);
+                        me.mensaje2();
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+
+                    Swal.fire('Eliminado!', 'Se elimino correctamente.', 'success');
+                }
             });
         },
         abrirModal: function abrirModal(accion) {
@@ -56036,21 +56047,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 title: msj,
                 showConfirmButton: false,
                 timer: 2000
-            });
-        },
-        mensaje2: function mensaje2(msj2) {
-            Swal.fire({
-                title: 'Esta seguro de eliminarlo?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then(function (result) {
-                if (result.isConfirmed) {
-                    Swal.fire('Deleted!', 'Se elimino correctamente.', 'success');
-                }
             });
         }
     },
@@ -56951,6 +56947,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -57152,13 +57164,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var me = this;
             Swal.fire({
-                title: 'Esta seguro de eliminarlo?',
-                text: "You won't be able to revert this!",
+                title: 'Estas seguro?',
+                text: "Se eliminaran los datos",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                cancelButtonText: 'Cancelar!',
+                confirmButtonText: 'Confirmar!'
             }).then(function (result) {
                 if (result.isConfirmed) {
                     var url = "/libro/eliminar";
@@ -57166,17 +57179,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         id: data["id"]
                     }).then(function (response) {
                         me.listLib(1, me.criterio, me.buscar);
-                        me.mensaje2('Se elimino correctamente.');
                     }).catch(function (error) {
                         console.log(error);
                     });
 
-                    Swal.fire('Deleted!', 'Se elimino correctamente.', 'success');
+                    Swal.fire('Borrado!', 'Se elimino correctamente.', 'success');
                 }
             });
         }
     },
-
     computed: {
         isActived: function isActived() {
             return this.pagination.current_page;
@@ -57606,7 +57617,9 @@ var render = function() {
                               _vm.nombre = $event.target.value
                             }
                           }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _vm._m(2)
                       ]),
                       _vm._v(" "),
                       _c(
@@ -57644,7 +57657,9 @@ var render = function() {
                               _vm.codigo = $event.target.value
                             }
                           }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _vm._m(3)
                       ]),
                       _vm._v(" "),
                       _c(
@@ -57682,7 +57697,9 @@ var render = function() {
                               _vm.cant = $event.target.value
                             }
                           }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _vm._m(4)
                       ]),
                       _vm._v(" "),
                       _c(
@@ -57720,7 +57737,9 @@ var render = function() {
                               _vm.ano_publi = $event.target.value
                             }
                           }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _vm._m(5)
                       ]),
                       _vm._v(" "),
                       _c(
@@ -57758,7 +57777,9 @@ var render = function() {
                               _vm.num_pag = $event.target.value
                             }
                           }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _vm._m(6)
                       ]),
                       _vm._v(" "),
                       _c(
@@ -57796,7 +57817,9 @@ var render = function() {
                               _vm.ubicacion = $event.target.value
                             }
                           }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _vm._m(7)
                       ]),
                       _vm._v(" "),
                       _c(
@@ -57834,185 +57857,201 @@ var render = function() {
                               _vm.edicion = $event.target.value
                             }
                           }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _vm._m(8)
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("label", { staticClass: "mx-sm-4 " }, [
-                      _vm._v("Editoriales")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("label", { staticClass: "col-md-2 " }, [
+                        _vm._v("Editoriales")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "select",
                           {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.idEdit,
-                            expression: "idEdit"
-                          }
-                        ],
-                        staticClass: "form-control col-md-5   ",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.idEdit = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      },
-                      _vm._l(_vm.arrayEdit, function(objeto) {
-                        return _c("option", {
-                          key: objeto.id,
-                          domProps: {
-                            value: objeto.id,
-                            textContent: _vm._s(objeto.nombre)
-                          }
-                        })
-                      }),
-                      0
-                    ),
-                    _vm._v(" "),
-                    _c("label", { staticClass: " mx-sm-4 " }, [
-                      _vm._v("Categorias")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.idEdit,
+                                expression: "idEdit"
+                              }
+                            ],
+                            staticClass: "form-control   ",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.idEdit = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          _vm._l(_vm.arrayEdit, function(objeto) {
+                            return _c("option", {
+                              key: objeto.id,
+                              domProps: {
+                                value: objeto.id,
+                                textContent: _vm._s(objeto.nombre)
+                              }
+                            })
+                          }),
+                          0
+                        ),
+                        _c("br")
+                      ]),
+                      _vm._v(" "),
+                      _c("label", { staticClass: " col-md-2 " }, [
+                        _vm._v("Categorias")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4 " }, [
+                        _c(
+                          "select",
                           {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.idCat,
-                            expression: "idCat"
-                          }
-                        ],
-                        staticClass: "form-control col-md-5  ",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.idCat = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      },
-                      _vm._l(_vm.arrayCat, function(objeto) {
-                        return _c("option", {
-                          key: objeto.id,
-                          domProps: {
-                            value: objeto.id,
-                            textContent: _vm._s(objeto.nombre)
-                          }
-                        })
-                      }),
-                      0
-                    ),
-                    _vm._v(" "),
-                    _c("label", { staticClass: " cmx-sm-4 " }, [
-                      _vm._v("Autor")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.idCat,
+                                expression: "idCat"
+                              }
+                            ],
+                            staticClass: "form-control ",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.idCat = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          _vm._l(_vm.arrayCat, function(objeto) {
+                            return _c("option", {
+                              key: objeto.id,
+                              domProps: {
+                                value: objeto.id,
+                                textContent: _vm._s(objeto.nombre)
+                              }
+                            })
+                          }),
+                          0
+                        ),
+                        _c("br")
+                      ]),
+                      _vm._v(" "),
+                      _c("label", { staticClass: " col-md-2 " }, [
+                        _vm._v("Autor")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4 " }, [
+                        _c(
+                          "select",
                           {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.idAut,
-                            expression: "idAut"
-                          }
-                        ],
-                        staticClass: "form-control col-md-5  ",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.idAut = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      },
-                      _vm._l(_vm.arrayAut, function(objeto) {
-                        return _c("option", {
-                          key: objeto.id,
-                          domProps: {
-                            value: objeto.id,
-                            textContent: _vm._s(objeto.nombre)
-                          }
-                        })
-                      }),
-                      0
-                    ),
-                    _vm._v(" "),
-                    _c("label", { staticClass: " cmx-sm-4 " }, [
-                      _vm._v("Idioma")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.idAut,
+                                expression: "idAut"
+                              }
+                            ],
+                            staticClass: "form-control   ",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.idAut = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          _vm._l(_vm.arrayAut, function(objeto) {
+                            return _c("option", {
+                              key: objeto.id,
+                              domProps: {
+                                value: objeto.id,
+                                textContent: _vm._s(objeto.nombre)
+                              }
+                            })
+                          }),
+                          0
+                        ),
+                        _c("br")
+                      ]),
+                      _vm._v(" "),
+                      _c("label", { staticClass: " col-md-2 " }, [
+                        _vm._v("Idioma")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4 " }, [
+                        _c(
+                          "select",
                           {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.idIdi,
-                            expression: "idIdi"
-                          }
-                        ],
-                        staticClass: "form-control col-md-5  ",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.idIdi = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      },
-                      _vm._l(_vm.arrayIdi, function(objeto) {
-                        return _c("option", {
-                          key: objeto.id,
-                          domProps: {
-                            value: objeto.id,
-                            textContent: _vm._s(objeto.nombre)
-                          }
-                        })
-                      }),
-                      0
-                    )
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.idIdi,
+                                expression: "idIdi"
+                              }
+                            ],
+                            staticClass: "form-control ",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.idIdi = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          _vm._l(_vm.arrayIdi, function(objeto) {
+                            return _c("option", {
+                              key: objeto.id,
+                              domProps: {
+                                value: objeto.id,
+                                textContent: _vm._s(objeto.nombre)
+                              }
+                            })
+                          }),
+                          0
+                        ),
+                        _c("br")
+                      ])
+                    ])
                   ]
                 )
               ]),
@@ -58092,9 +58131,9 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
+              _vm._m(9),
               _vm._v(" "),
-              _vm._m(3),
+              _vm._m(10),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
                 _c(
@@ -58169,6 +58208,48 @@ var staticRenderFns = [
         _c("th", [_vm._v("Opciones")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "help-block" }, [_c("br")])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "help-block" }, [_c("br")])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "help-block" }, [_c("br")])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "help-block" }, [_c("br")])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "help-block" }, [_c("br")])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "help-block" }, [_c("br")])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "help-block" }, [_c("br")])
   },
   function() {
     var _vm = this
@@ -58551,7 +58632,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
             var me = this;
-
             Swal.fire({
                 title: 'Estas seguro?',
                 text: "Se eliminaran los datos",
@@ -58572,6 +58652,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }).catch(function (error) {
                         console.log(error);
                     });
+                    Swal.fire('Eliminado!', 'Se elimino correctamente.', 'success');
                 }
             });
         },
@@ -59803,28 +59884,28 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_toasted___default.a);
     }), _defineProperty(_methods, "eliminarSolicitud", function eliminarSolicitud() {
         var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
-        var me = this;
+        this.arrayDatos.splice(0, 1);
         Swal.fire({
-            title: 'Esta seguro de eliminarlo?',
-            text: "You won't be able to revert this!",
+            title: 'Estas seguro?',
+            text: "Se eliminaran los datos",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            cancelButtonText: 'Cancelar!',
+            confirmButtonText: 'Confirmar!'
         }).then(function (result) {
             if (result.isConfirmed) {
                 var url = "/solicitudes/eliminar";
                 axios.post(url, {
-                    id_solicitudes: data["id"]
+                    id: data["id"]
                 }).then(function (response) {
-                    me.listLib(1, this.buscar);
-                    me.mensaje2('Se elimino correctamente.');
+                    me.listLib(1, me.criterio, me.buscar);
                 }).catch(function (error) {
                     console.log(error);
                 });
 
-                Swal.fire('Deleted!', 'Se elimino correctamente.', 'success');
+                Swal.fire('Borrado!', 'Se elimino correctamente.', 'success');
             }
         });
     }), _methods),
@@ -60284,6 +60365,7 @@ var render = function() {
                                 "button",
                                 {
                                   staticClass: "btn btn-success",
+                                  attrs: { type: "button" },
                                   on: {
                                     click: function($event) {
                                       return _vm.agregarItem(objeto)
@@ -60727,185 +60809,186 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        var _ref;
+  data: function data() {
+    var _ref;
 
-        return _ref = {
-            arrayDatos: [],
-            //  arrayUsers:[],
-            nombre: "",
-            idUsers: 0,
-            modal: 0,
-            titulo: "",
-            accion: 0,
-            email: "",
-            name: ""
-        }, _defineProperty(_ref, "nombre", ""), _defineProperty(_ref, "password", ""), _defineProperty(_ref, "pagination", {
-            total: 0,
-            current_page: 0,
-            per_page: 0,
-            last_page: 0,
-            from: 0,
-            to: 0
-        }), _defineProperty(_ref, "offset", 3), _defineProperty(_ref, "buscar", ''), _defineProperty(_ref, "criterio", 'name'), _ref;
+    return _ref = {
+      arrayDatos: [],
+      //  arrayUsers:[],
+      nombre: "",
+      idUsers: 0,
+      modal: 0,
+      titulo: "",
+      accion: 0,
+      email: "",
+      name: ""
+    }, _defineProperty(_ref, "nombre", ""), _defineProperty(_ref, "password", ""), _defineProperty(_ref, "pagination", {
+      total: 0,
+      current_page: 0,
+      per_page: 0,
+      last_page: 0,
+      from: 0,
+      to: 0
+    }), _defineProperty(_ref, "offset", 3), _defineProperty(_ref, "buscar", ''), _defineProperty(_ref, "criterio", 'name'), _ref;
+  },
+
+
+  methods: {
+    cambiarPagina: function cambiarPagina(page, buscar, criterio) {
+      var me = this;
+      //va a la pagina actual
+      me.pagination.current_page = page;
+      //envia al metodo para traer los datos
+      me.listUsers(page, criterio, buscar);
     },
 
 
-    methods: {
-        cambiarPagina: function cambiarPagina(page, buscar, criterio) {
-            var me = this;
-            //va a la pagina actual
-            me.pagination.current_page = page;
-            //envia al metodo para traer los datos
-            me.listUsers(page, criterio, buscar);
-        },
+    listUsers: function listUsers(page, criterio, buscar) {
+      var me = this;
+      var url = "/users?page=" + page + '&criterio=' + criterio + '&buscar=' + buscar;
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.arrayDatos = respuesta.users.data;
+        me.pagination = respuesta.pagination;
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    regUsers: function regUsers() {
+      var me = this;
+      var url = "/users/registrar";
+      axios.post(url, {
+        id: this.idUsers,
+        name: this.nombre,
+        email: this.email,
+        password: this.password
 
+      }).then(function (response) {
+        me.listUsers(1, me.criterio, me.buscar);
+        me.mensaje('Se guardo correctamente');
+        me.cerrarModal();
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    actUsers: function actUsers() {
+      var me = this;
+      var url = "/users/actualizar";
+      axios.put(url, {
+        id: this.idUsers,
+        name: this.nombre,
+        email: this.email,
+        password: this.password
+      }).then(function (response) {
+        me.listUsers(1, me.criterio, me.buscar);
+        me.mensaje("Se actualizo correctamente");
+        me.cerrarModal();
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    eliminarUsers: function eliminarUsers() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
-        listUsers: function listUsers(page, criterio, buscar) {
-            var me = this;
-            var url = "/users?page=" + page + '&criterio=' + criterio + '&buscar=' + buscar;
-            axios.get(url).then(function (response) {
-                var respuesta = response.data;
-                me.arrayDatos = respuesta.users.data;
-                me.pagination = respuesta.pagination;
-            }).catch(function (error) {
-                console.log(error);
-            });
-        },
-        regUsers: function regUsers() {
-            var me = this;
-            var url = "/users/registrar";
-            axios.post(url, {
-                id: this.idUsers,
-                name: this.nombre,
-                email: this.email,
-                password: this.password
+      var me = this;
+      Swal.fire({
+        title: 'Estas seguro?',
+        text: "Se eliminaran los datos",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar!',
+        confirmButtonText: 'Confirmar!'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          var url = "/users/eliminar";
+          axios.post(url, {
+            id: data["id"]
+          }).then(function (response) {
+            me.listUsers(1, me.criterio, me.buscar);
+            me.mensaje2('Se elimino correctamente.');
+          }).catch(function (error) {
+            console.log(error);
+          });
 
-            }).then(function (response) {
-                me.listUsers(1, me.criterio, me.buscar);
-                me.mensaje('Se guardo correctamente');
-                me.cerrarModal();
-            }).catch(function (error) {
-                console.log(error);
-            });
-        },
-        actUsers: function actUsers() {
-            var me = this;
-            var url = "/users/actualizar";
-            axios.put(url, {
-                id: this.idUsers,
-                name: this.nombre,
-                email: this.email,
-                password: this.password
-            }).then(function (response) {
-                me.listUsers(1, me.criterio, me.buscar);
-                me.mensaje("Se actualizo correctamente");
-                me.cerrarModal();
-            }).catch(function (error) {
-                console.log(error);
-            });
-        },
-        eliminarUsers: function eliminarUsers() {
-            var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
-            var me = this;
-            var url = "/users/eliminar";
-            axios.post(url, {
-                id: data["id"]
-            }).then(function (response) {
-                me.listUsers(1, me.criterio, me.buscar);
-                me.mensaje2('Se elimino correctamente.');
-            }).catch(function (error) {
-                console.log(error);
-            });
-        },
-        abrirModal: function abrirModal(accion) {
-            var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-
-            switch (accion) {
-                case "guardar":
-                    this.titulo = "Registrar usuario";
-                    this.accion = 0;
-                    this.limpiar();
-                    break;
-                case "editar":
-                    this.titulo = "Editar usuario";
-                    this.accion = 1;
-                    this.idUsers = data["id"];
-                    this.nombre = data["name"];
-                    this.email = data["email"];
-                    this.password = data["password"];
-                    break;
-                default:
-                    break;
-            }
-            this.modal = 1;
-        },
-        cerrarModal: function cerrarModal() {
-            this.modal = 0;
-        },
-        limpiar: function limpiar() {
-            this.name = "";
-            this.email = "";
-            this.password = "";
-        },
-        mensaje: function mensaje(msj) {
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: msj,
-                showConfirmButton: false,
-                timer: 2000
-            });
-        },
-        mensaje2: function mensaje2(msj2) {
-            Swal.fire({
-                title: "Esta seguro de eliminarlo?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
-            }).then(function (result) {
-                if (result.isConfirmed) {
-                    Swal.fire("Deleted!", "Se elimino correctamente.", "success");
-                }
-            });
+          Swal.fire('Borrado!', 'Se elimino correctamente.', 'success');
         }
+      });
     },
-    computed: {
-        isActived: function isActived() {
-            return this.pagination.current_page;
-        },
-        //Calcula los elementos de la paginación
-        pagesNumber: function pagesNumber() {
-            if (!this.pagination.to) {
-                return [];
-            }
+    abrirModal: function abrirModal(accion) {
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
-            var from = this.pagination.current_page - this.offset;
-            if (from < 1) {
-                from = 1;
-            }
-
-            var to = from + this.offset * 2;
-            if (to >= this.pagination.last_page) {
-                to = this.pagination.last_page;
-            }
-
-            var pagesArray = [];
-            while (from <= to) {
-                pagesArray.push(from);
-                from++;
-            }
-            return pagesArray;
-        }
+      switch (accion) {
+        case "guardar":
+          this.titulo = "Registrar usuario";
+          this.accion = 0;
+          this.limpiar();
+          break;
+        case "editar":
+          this.titulo = "Editar usuario";
+          this.accion = 1;
+          this.idUsers = data["id"];
+          this.nombre = data["name"];
+          this.email = data["email"];
+          this.password = data["password"];
+          break;
+        default:
+          break;
+      }
+      this.modal = 1;
     },
-    mounted: function mounted() {
-        console.log("Component mounted.");
-        this.listUsers(1, this.criterio, this.buscar);
+    cerrarModal: function cerrarModal() {
+      this.modal = 0;
+    },
+    limpiar: function limpiar() {
+      this.name = "";
+      this.email = "";
+      this.password = "";
+    },
+    mensaje: function mensaje(msj) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: msj,
+        showConfirmButton: false,
+        timer: 2000
+      });
     }
+  },
+  computed: {
+    isActived: function isActived() {
+      return this.pagination.current_page;
+    },
+    //Calcula los elementos de la paginación
+    pagesNumber: function pagesNumber() {
+      if (!this.pagination.to) {
+        return [];
+      }
+
+      var from = this.pagination.current_page - this.offset;
+      if (from < 1) {
+        from = 1;
+      }
+
+      var to = from + this.offset * 2;
+      if (to >= this.pagination.last_page) {
+        to = this.pagination.last_page;
+      }
+
+      var pagesArray = [];
+      while (from <= to) {
+        pagesArray.push(from);
+        from++;
+      }
+      return pagesArray;
+    }
+  },
+
+  mounted: function mounted() {
+    console.log("Component mounted.");
+    this.listUsers(1, this.criterio, this.buscar);
+  }
 });
 
 /***/ }),

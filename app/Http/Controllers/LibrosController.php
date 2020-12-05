@@ -99,7 +99,7 @@ class LibrosController extends Controller
     
     public function getLibro(Request $request){
     
-        $buscar=$request->buscar;
+       
        
    
             $libro=Libros::join('editorials','libros.id_editorial','=','editorials.id')

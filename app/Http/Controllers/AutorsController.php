@@ -74,7 +74,7 @@ class AutorsController extends Controller
     
     public function getAutor(Request $request){
 
-        $buscar=$request->buscar;
+       
         
     $autors=Autors::
     select('autors.id','autors.nombre')->get();

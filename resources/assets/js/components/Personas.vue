@@ -243,10 +243,9 @@
                     console.log(error);
                 });
             },
-            
+             
             eliminarPer(data=[]){
                 let me = this;
-
                 Swal.fire({
                     title: 'Estas seguro?',
                     text: "Se eliminaran los datos",
@@ -268,7 +267,12 @@
                         })
                             .catch(function(error){
                             console.log(error);
-                        });                        
+                        }); 
+                        Swal.fire(
+                                'Eliminado!',
+                                'Se elimino correctamente.',
+                                'success'
+                                 )                       
                     }
                 })                 
             },

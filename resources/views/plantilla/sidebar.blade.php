@@ -10,23 +10,22 @@
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i>General</a>
                 <ul class="nav-dropdown-items">
-                    <li>
-                    <li @click="menu=1" class="nav-item">
+                
+                        <li @click="menu=1" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-bag"></i>Autores</a>
-                    </li >
-                    <li @click="menu=2" class="nav-item">
+                        </li >
+                        <li @click="menu=2" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-bag"></i>Categorias</a>
-                    </li >
-                    <li @click="menu=3" class="nav-item">
+                        </li >
+                        <li @click="menu=3" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-bag"></i>Editoriales</a>
-                    </li >
-                    <li @click="menu=4" class="nav-item">
+                        </li >
+                        <li @click="menu=4" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-bag"></i>Idiomas</a>
-                     </li >
-                    <li @click="menu=5" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-bag"></i>Pais</a>
-                    </li>
-                    
+                         </li >
+                        <li @click="menu=5" class="nav-item">
+                            <a class="nav-link" href="#"><i class="icon-bag"></i>Pais</a>
+                        </li>
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">

@@ -226,21 +226,43 @@
                 });
              },
 
-            eliminarPais(data=[]){
+             eliminarPais(data=[]){
                 let me = this;
-                var url="/pais/eliminar";
-                axios.post(url,{
-                    id:data['id']
+                Swal.fire({
+                 title: 'Estas seguro?',
+                text: "Se eliminaran los datos",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar!',
+                confirmButtonText: 'Confirmar!'
+                 }).then((result) => {
+                 if (result.isConfirmed) {
+                var url = "/pais/eliminar";
+                axios.post(url, {
+                 id: data["id"],
                 })
-                .then(function(response){
-                    me.listPais(1, me.criterio, me.buscar);
-                    me.mensaje2('Se elimino correctamente.');
+                 .then(function (response) {
+                 me.listPais(1, me.criterio, me.buscar);
+                me.mensaje2(); 
                 })
-                .catch(function(error){
-                    console.log(error);
-                }); 
-            },
-            abrirModal(accion,data=[]){
+                 .catch(function (error) {
+                 console.log(error);
+                 });
+
+                 Swal.fire(
+                'Eliminado!',
+                'Se elimino correctamente.',
+                'success'
+                )
+                  }
+                })
+
+             },
+                    
+           
+                abrirModal(accion,data=[]){
                 switch(accion){
                 case'guardar':
                 this.titulo='Registrar Pais';
@@ -273,58 +295,36 @@
              timer: 2000
             })
           },
-           mensaje2(msj2){
-             Swal.fire({
-                 title: 'Esta seguro de eliminarlo?',
-                text: "You won't be able to revert this!",
-                 icon: 'warning',
-                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-             }).then((result) => {
-                if (result.isConfirmed) {
-                Swal.fire(
-               'Deleted!',
-                'Se elimino correctamente.',
-                'success'
-                    )
-                 }
-                })
+        } , 
+            computed:{
+                isActived: function() {
+                return this.pagination.current_page;
+                },
+                //Calcula los elementos de la paginación
+                pagesNumber: function() {
+                if (!this.pagination.to) {
+                    return [];
+                }
 
-            }
+                var from = this.pagination.current_page - this.offset;
+                if (from < 1) {
+                    from = 1;
+                }
 
+                var to = from + this.offset * 2;
+                if (to >= this.pagination.last_page) {
+                    to = this.pagination.last_page;
+                }
 
-        },
-           computed:{
-            isActived: function() {
-            return this.pagination.current_page;
+                var pagesArray = [];
+                while (from <= to) {
+                    pagesArray.push(from);
+                    from++;
+                }
+                return pagesArray;
+                }
+
             },
-            //Calcula los elementos de la paginación
-            pagesNumber: function() {
-            if (!this.pagination.to) {
-                return [];
-            }
-
-            var from = this.pagination.current_page - this.offset;
-            if (from < 1) {
-                from = 1;
-            }
-
-            var to = from + this.offset * 2;
-            if (to >= this.pagination.last_page) {
-                to = this.pagination.last_page;
-            }
-
-            var pagesArray = [];
-            while (from <= to) {
-                pagesArray.push(from);
-                from++;
-            }
-            return pagesArray;
-            }
-
-        },
 
         mounted() {
             console.log('Component mounted.')
@@ -333,7 +333,7 @@
     }
 </script>
 
-<style>
+<style> 
 
 .modal-content{
 width: 100% !important;

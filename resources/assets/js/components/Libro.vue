@@ -121,71 +121,87 @@
                     <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                         <div class="form-group row">
                            
-                              <label class="col-md-2 form-control-label" for="text-input">Nombre</label>
-                              <div class="col-md-4">
-                                <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control" placeholder="Nombre libro">
-                                <!-- <span class="help-block">(*) Ingrese el nombre del Libro</span> -->
-                            </div> 
+                             <label class="col-md-2 form-control-label" for="text-input">Nombre</label>
+                                 <div class="col-md-4">
+                                 <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control" placeholder="Nombre libro">
+                                 <span class="help-block"><br> </span>
+                               </div> 
+                            
+
                             <label class="col-md-2 form-control-label" for="text-input">Código</label>
                             <div class="col-md-4">
                                 <input type="text" v-model="codigo" id="codigo" name="codigo" class="form-control" placeholder="codigo libro">
-                                <!-- <span class="help-block">(*) Ingrese el código del libro</span> -->
-                        </div>
+                                <span class="help-block"> <br></span>
+                            </div>
+
+                            
 
                             <label class="col-md-2 form-control-label" for="text-input">Cantidad</label>
                             <div class="col-md-4">
                                 <input type="text" v-model="cant" id="cant" name="cant" class="form-control" placeholder="cantidad">
-                                <!-- <span class="help-block">(*) Ingrese la cantidad</span> -->
-                            </div> 
+                                <span class="help-block"> <br></span>
+                            </div>
 
+                            
                             <label class="col-md-2 form-control-label" for="text-input">Año Publicación</label>
                             <div class="col-md-4">
                                 <input type="date" v-model="ano_publi" id="ano_publi" name="ano_publi" class="form-control" placeholder="año publicacion">
-                                <!-- <span class="help-block">(*) Ingrese el año de publicación</span> -->
-                            </div> 
+                                <span class="help-block"><br> </span>
+                            </div>
+
+                            
 
                             <label class="col-md-2 form-control-label" for="text-input">Num. Paginas</label>
                             <div class="col-md-4">
                                 <input type="text" v-model="num_pag" id="num_pag" name="num_pag" class="form-control" placeholder="numero de paginas">
-                                <!-- <span class="help-block">(*) Ingrese el numero de pag.</span> -->
+                                <span class="help-block"><br> </span>
                             </div> 
+
+                            
 
                             <label class="col-md-2 form-control-label" for="text-input">Ubicación</label>
                             <div class="col-md-4">
                                 <input type="text" v-model="ubicacion" id="ubicacion" name="ubicacion" class="form-control" placeholder="ubicacion">
-                                <!-- <span class="help-block">(*) Ingrese la ubicación</span> -->
+                                <span class="help-block"> <br></span>
                             </div> 
-                    
+
                             <label class="col-md-2 form-control-label" for="text-input">Edición</label>
                             <div class="col-md-4">
                                 <input type="text" v-model="edicion" id="edicion" name="edicion" class="form-control" placeholder="edicion">
-                                <!-- <span class="help-block">(*) Ingrese la edicion</span> -->
+                                <span class="help-block"><br> </span>
                             </div> 
                         </div>
-                        
-                              <label class="mx-sm-4 ">Editoriales</label>  
-                       
-                                    <select v-model="idEdit" class="form-control col-md-5   " >
+                            <div class="form-group row">
+                           
+                                <label class="col-md-2 ">Editoriales</label>
+                                <div class="col-md-4">    
+                                  <select v-model="idEdit" class="form-control   " >
                                         <option v-for="objeto in arrayEdit" :value="objeto.id" :key="objeto.id" v-text="objeto.nombre"></option> 
-                                     </select>
-                            
-                             <label class=" mx-sm-4 ">Categorias</label>      
-                                <select v-model="idCat" class="form-control col-md-5  " >
-                                    <option v-for="objeto in arrayCat" :value="objeto.id" :key="objeto.id" v-text="objeto.nombre"></option> 
-                                </select>
-                                
-                             
-                             
-                                <label class=" cmx-sm-4 ">Autor</label>    
-                                <select v-model="idAut" class="form-control col-md-5  " >
-                                    <option v-for="objeto in arrayAut" :value="objeto.id" :key="objeto.id" v-text="objeto.nombre"></option> 
-                                </select>
-                            
-                                <label class=" cmx-sm-4 ">Idioma</label>      
-                                <select v-model="idIdi" class="form-control col-md-5  " >
+                                  </select><br>
+                                </div>
+
+                                  <label class=" col-md-2 ">Categorias</label>  
+                                     <div class="col-md-4 "> 
+                                        <select v-model="idCat" class="form-control " >
+                                         <option v-for="objeto in arrayCat" :value="objeto.id" :key="objeto.id" v-text="objeto.nombre"></option> 
+                                        </select><br>
+                                    </div>
+
+                                <label class=" col-md-2 ">Autor</label>   
+                                   <div class="col-md-4 ">  
+                                     <select v-model="idAut" class="form-control   " >
+                                     <option v-for="objeto in arrayAut" :value="objeto.id" :key="objeto.id" v-text="objeto.nombre"></option> 
+                                     </select><br>
+                                    </div>
+
+
+                                <label class=" col-md-2 ">Idioma</label> 
+                                 <div class="col-md-4 ">     
+                                <select v-model="idIdi" class="form-control " >
                                     <option v-for="objeto in arrayIdi" :value="objeto.id" :key="objeto.id" v-text="objeto.nombre"></option> 
-                                </select>
-                            
+                                </select><br>
+                                </div>
+                            </div>
                                                         
                     </form>
                 </div>
@@ -433,14 +449,15 @@
           },
            eliminarLib(data=[]){
                          let me = this;
-             Swal.fire({
-                title: 'Esta seguro de eliminarlo?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                Swal.fire({
+                    title: 'Estas seguro?',
+                    text: "Se eliminaran los datos",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar!',
+                    confirmButtonText: 'Confirmar!'
              }).then((result) => {
                 if (result.isConfirmed) {
            var url = "/libro/eliminar";
@@ -449,26 +466,22 @@
                 })
                 .then(function (response) {
                 me.listLib(1, me.criterio, me.buscar);
-                me.mensaje2('Se elimino correctamente.');
                 })
                 .catch(function (error) {
                 console.log(error);
                 });
 
                 Swal.fire(
-               'Deleted!',
+               'Borrado!',
                 'Se elimino correctamente.',
                 'success'
                     )
                  }
                 })
 
-            }
+            },
            
-        },  
-
-          
-
+        }, 
             computed:{
             isActived: function() {
             return this.pagination.current_page;

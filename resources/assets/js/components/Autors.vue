@@ -372,24 +372,45 @@ export default {
                 })
                 .catch(function(error) {
                     console.log(error);
-                });
+                }); 
         },
-       eliminarAut(data=[]){
-                let me = this;
-                var url="/autors/eliminar";
-                axios.post(url,{
-                id:data['id']
-            })
-            .then(function(response){
-                me.listAut(1, me.criterio, me.buscar);
-                me.mensaje2('Se elimino correctamente.');
-        
-             })
-            .catch(function(error){
+  eliminarAut(data=[]){
+             let me = this;
+             Swal.fire({
+                    title: 'Estas seguro?',
+                    text: "Se eliminaran los datos",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar!',
+                    confirmButtonText: 'Confirmar!'
+             }).then((result) => {
+                if (result.isConfirmed) {
+           var url = "/autors/eliminar";
+            axios.post(url, {
+                id: data["id"],
+                })
+                .then(function (response) {
+               me.listAut(1, me.criterio, me.buscar);
+                })
+                .catch(function (error) {
                 console.log(error);
-             });
+                });
 
-            }, 
+                Swal.fire(
+               'Borrado!',
+                'Se elimino correctamente.',
+                'success'
+                    )
+                 }
+                })
+
+            },
+           
+         
+        
+    
             abrirModal(accion,data=[]){
                 switch(accion){
                 case'guardar':
@@ -424,26 +445,7 @@ export default {
              timer: 2000
             })
           },
-           mensaje2(msj2){
-             Swal.fire({
-                title: 'Esta seguro de eliminarlo?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-             }).then((result) => {
-                if (result.isConfirmed) {
-                Swal.fire(
-               'Deleted!',
-                'Se elimino correctamente.',
-                'success'
-                    )
-                 }
-                })
-
-            }
+       
 
     },
 
