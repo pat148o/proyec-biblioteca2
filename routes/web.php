@@ -21,6 +21,11 @@
 Route::get('/','Auth\LoginController@mostrarLogin');
 Route::post('/login','Auth\LoginController@login')->name('login');
 
+
+// Route::post('/logout','Auth\LoginController@logout')->name('logout');
+
+Route::post('/logout','Auth\LoginController@logout')->name('logout');
+
 Route::get('/main', function () {
     return view('contenido/contenido');
 })->name('main');
