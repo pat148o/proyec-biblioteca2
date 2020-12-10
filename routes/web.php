@@ -93,7 +93,8 @@ Route::post('/libro/eliminar','librosController@destroy');
 
 
 
-Route::get('solicitudes','solicitudesController@index');
+Route::get('solicitudes','SolicitudesController@index');
 Route::post('/solicitudes/registrar','solicitudesController@store');
 Route::post('/solicitudes/eliminar','solicitudesController@destroy');
 
+Route::get('detsolicitudes','DetSolicitudesController@index');

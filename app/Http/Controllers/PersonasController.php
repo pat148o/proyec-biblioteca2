@@ -52,7 +52,7 @@ class PersonasController extends Controller
     //actualizar datos
     public function update(Request $request)
     {
-        $personas= Personas::findOrfail($request->id);
+        $personas= Personas::findOrFail($request->id);
         $personas->nombres = $request->nombres;
         $personas->apellidos = $request->apellidos;
         $personas->dir = $request->dir;
@@ -64,7 +64,7 @@ class PersonasController extends Controller
     //eliminar datos
     public function destroy(Request $request)
     {
-        $personas= Personas::findOrfail($request->id);
+        $personas= Personas::findOrFail($request->id);
         $personas->delete();
     }
 

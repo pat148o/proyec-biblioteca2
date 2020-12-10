@@ -99,6 +99,8 @@ class LibrosController extends Controller
     
     public function getLibro(Request $request){
     
+        $buscar=$request->buscar;
+       
        
        
    

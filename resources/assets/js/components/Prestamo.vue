@@ -12,12 +12,13 @@
 
             <div class="card-header">
                 <i class="fa fa fa-book"></i>Solicitud Libros
-                <button type="button" class="btn btn-primary" data-toggle="modal" @click="abrirModal('guardar')">
+                <button type="button" class="btn btn-primary" data-toggle="modal" @click="mostrar()">
                     <i class="icon-plus"></i>&nbsp;Nuevo 
                 </button>
             </div>
             <div class="card-body">
 
+            <template v-if="view" >
                <label>Usuario</label>
                <div class= "form-group form-inline">
                     <select v-model="idPersona" class="form-control col-5 mx-sm-1" >
@@ -26,9 +27,10 @@
                    <label class="mx-sm-1">Fecha Devolución</label>
                   <input v-model="fecEntrega" type="date" class="form-control col-md-4">
                 
-                  
                 </div>
-               <div class= "form-group form-inline">
+
+            
+                 <div class= "form-group form-inline">
                    <input v-model="buscar" class="form-control col-4" placeholder="Ingrese el codigo del libro" type="text" @keyup.enter="getLibro(buscar)">
                    <button class="btn btn-primary" @click="abrirModal()"><i class="fa fa-search"></i></button>
                    <h4 class= "text-muted mx-sm-3" v-text="nomLibro"></h4>
@@ -36,8 +38,6 @@
                     <input v-model="cant" type="number" class="form-control" placeholder="cantidad libros" >
                    <button type="button" class="btn btn-success" @click="agregarItem2" >
                     <i class="icon-check"></i></button>
-                  
-
                 </div>  
                 <table class="table table-bordered table-striped table-sm">
                     <thead>
@@ -52,11 +52,11 @@
                     </thead>
                     <tbody>
                         <tr v-for="objeto in arrayDatos" :key="objeto.id">
-                            <td v-text="objeto.cod"></td>
-                            <td v-text="objeto.nombre"></td>
+                            <td v-text="objeto.codLibro"></td>
+                            <td v-text="objeto.nomLibro"></td>
                             <td v-text="objeto.cant"></td>
-                            <td v-text="objeto.autor"></td>
-                            <td v-text="objeto.edit"></td>
+                            <td v-text="objeto.nomAut"></td>
+                            <td v-text="objeto.nomEdit"></td>
                            
                             <td>                                                           
                                
@@ -69,8 +69,37 @@
                     </tbody>
                 </table>
                 <button type="button" class="btn btn-primary" data-togle="modal" @click="regSolicitud()">Guardar</button>
+                <button type="button" class="btn btn-info"  @click="ocultar()">Atras</button>
+            </template>
+            <template v-else>
+              <table class="table table-bordered table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>Numero</th>
+                            <th>Cliente</th>
+                            <th>Fecha Solicitud</th>
+                            <th>Fecha Entrega</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="objeto in arrayMaster" :key="objeto.id">
+                            <td v-text="objeto.id"></td>
+                            <td v-text="objeto.nomCom"></td>
+                            <td v-text="objeto.fec_sol"></td>
+                            <td v-text="objeto.fec_entrega"></td>
+                            <td>                                                           
+                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" @click="mostrar(objeto)" >
+                                  <i class="icon-eye"></i>
+                                </button>
+
+                             </td>    
+                        </tr>                                                                                                                                
+                    </tbody>
+                </table>
+            </template>
             </div>
-            
+             
         </div>
         <!-- Fin ejemplo de tabla Listado -->
     </div>
@@ -183,15 +212,20 @@ Vue.use(Toasted);
                 arrayLibros:[],
                 arrayGetLibro:[],
                 arrayPersona:[],
+                arrayMaster:[],
                 idPersona:"",
                 idLibros:"",
                 modal:0,
                 nomLibro:"",
                 codLibro:"",
+                nomAut:"",
+                nomEdit:"",
                 cant:"",
                 titulo:"",
+                idSolicitud:0,
                 cant:1,
                 fecEntrega:"",
+                view:0,
                 buscar:"",
 
                //variables de pagination
@@ -222,6 +256,32 @@ Vue.use(Toasted);
                     console.log(error);
                 });
             },
+            listDatos:function(page){
+                let me = this;
+                var url="/solicitudes?page="+ page+ '&buscar='+ this.idSolicitud;
+                axios.get(url).then(function(response){
+                    var respuesta = response.data;
+                    me.arrayMaster = respuesta.solicitudes.data;
+                    me.pagination=respuesta.pagination;
+                })
+                .catch(function(error){
+                    console.log(error);
+                });
+            },
+        listDetDatos:function(page){
+            let me = this;
+            var url="/detsolicitudes?page="+ page +'&buscar=' + this.idSolicitud;
+            axios.get(url)
+            .then(function(response){
+            var respuesta = response.data;
+            me.arrayDatos = respuesta.solicitudes.data,
+            me.pagination=respuesta.pagination;
+            })
+            .catch(function(error){
+            console.log(error);
+            });
+        },
+            
             getLibro:function(buscar){
                 let me = this;
                 var url="/getlibro?&buscar="+buscar;
@@ -246,6 +306,18 @@ Vue.use(Toasted);
                 });
             },
 
+            mostrar(data=[]){
+                this.view=1;
+                this.idPersona=data['idPerso'];
+                this.fecEntrega=data['fec_entrega'];
+                this.idSolicitud=data['id'];
+                this.listDetDatos(1,"");
+
+            },
+            ocultar(){
+                this.view=0;
+            },
+
             getPersona:function(){
              let me=this;
              var url="/getpersona"
@@ -267,13 +339,25 @@ Vue.use(Toasted);
             },
             //toma los datos de la ventana modal cuando se da ok en el boton y los agrega a la tabla arraydatos
             agregarItem:function(data=[]){
-                this.arrayDatos.push({id:data['id'],cod:data['codigo'],nombre:data['nombre'],cant:this.cant,autor:data['nomAut'],edit:data['nomEdit']});
+                this.arrayDatos.push({
+                    id:data['id'],
+                    cod:data['codigo'],
+                    nombre:data['nombre'],
+                    cant:this.cant,
+                    autor:data['nomAut'],
+                    edit:data['nomEdit']});
                 this.arrayLibros.splice (0,1);
                 this.mensajeToast();
              },
              //agrega los datos que se estan llenando del formulario principal
             agregarItem2:function(){
-                this.arrayDatos.push({id:this.idLibro,cod:this.codLibro,nombre:this.nomLibro,cant:this.cant,autor:this.nomAut,edit:this.nomEdit});
+                this.arrayDatos.push({
+                    id:this.idLibro,
+                    codLibro:this.codLibro,
+                    nomLibro:this.nomLibro,
+                    cant:this.cant,
+                    nomAut:this.nomAut,
+                    nomEdit:this.nomEdit});
                 this.arrayLibros.splice (0,1);
              },
              mensajeToast(){
@@ -424,8 +508,9 @@ Vue.use(Toasted);
                 
          mounted() {
          console.log('Component mounted.')
+                    this.listDatos();
                     this.getPersona();
-                    this.listLib(1,this.buscar);
+                    // this.listLib(1,this.buscar);
          }
   }
 </script>

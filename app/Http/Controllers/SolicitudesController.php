@@ -15,13 +15,11 @@ class SolicitudesController extends Controller
     {
         $buscar=$request->buscar;
        
-        if ($buscar=='') {
-            $solicitudes=Solicitudes::orderBy('id_persona','asc')->paginate(12);
+      
+            $solicitudes=Solicitudes::join('personas','solicitudes.id_persona','=','personas.id')
+           ->select('solicitudes.id','fec_sol','fec_entrega','personas.nomCom','personas.id as idPerso') 
+           ->orderBy('id','asc')->paginate(12);
    
-        }else {
-            $solicitudes=Solicitudes::where(nomCom,'like','%'.$buscar.'%')-orderBy('nomCom','asc')->paginate(4);
-        }
-
         
         
         return [ 'pagination'=>[
@@ -37,6 +35,8 @@ class SolicitudesController extends Controller
                 ],'solicitudes'=>$solicitudes
             
             ];
+
+        
     }
 
     public function store(Request $request) {

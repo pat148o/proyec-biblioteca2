@@ -41,7 +41,7 @@
                             <th>Edición</th>                                   
                             <th>Editorial</th>                                   
                             <th>Categoria</th>                                   
-                            <th>Autor</th>                                   
+                            <th>Autor</th>                                    
                             <th>Idioma</th>                                                                    
                             <th>Opciones</th>                               
                         </tr>
